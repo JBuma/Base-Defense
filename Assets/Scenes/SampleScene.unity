@@ -7259,17 +7259,17 @@ Prefab:
     - target: {fileID: 70558919752539532, guid: 5aa4c76c363896e48b3fd77358467889,
         type: 2}
       propertyPath: m_Size.x
-      value: 0.45
+      value: 0.64
       objectReference: {fileID: 0}
     - target: {fileID: 70558919752539532, guid: 5aa4c76c363896e48b3fd77358467889,
         type: 2}
       propertyPath: m_Size.y
-      value: 0.77
+      value: 0.98
       objectReference: {fileID: 0}
     - target: {fileID: 70558919752539532, guid: 5aa4c76c363896e48b3fd77358467889,
         type: 2}
       propertyPath: m_Offset.y
-      value: -0.12
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 70558919752539532, guid: 5aa4c76c363896e48b3fd77358467889,
         type: 2}
@@ -7280,6 +7280,26 @@ Prefab:
         type: 2}
       propertyPath: m_Constraints
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114012588593265736, guid: 5aa4c76c363896e48b3fd77358467889,
+        type: 2}
+      propertyPath: jumpPower
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 50622441888606344, guid: 5aa4c76c363896e48b3fd77358467889,
+        type: 2}
+      propertyPath: m_Mass
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114012588593265736, guid: 5aa4c76c363896e48b3fd77358467889,
+        type: 2}
+      propertyPath: playerSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 50622441888606344, guid: 5aa4c76c363896e48b3fd77358467889,
+        type: 2}
+      propertyPath: m_LinearDrag
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5aa4c76c363896e48b3fd77358467889, type: 2}
@@ -7416,7 +7436,7 @@ GameObject:
   - component: {fileID: 1636975015}
   - component: {fileID: 1636975017}
   - component: {fileID: 1636975016}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9135,7 +9155,7 @@ Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1636975011}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
