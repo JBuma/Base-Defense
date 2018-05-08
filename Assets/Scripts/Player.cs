@@ -10,8 +10,10 @@ public class Player : MonoBehaviour {
 	[SerializeField] float runSpeed = 4f;
 	[SerializeField] float jumpPower = 10f;
 	[SerializeField] float climbingSpeed = 3f;
+	[SerializeField] float ragdollTime = 0.5f;
 
 	bool isClimbing = false;
+	bool isRagdoll = false;
 
 	Rigidbody2D rigidbody;
 	Animator animator;
@@ -40,6 +42,12 @@ public class Player : MonoBehaviour {
 		jumping();
 		climbing();
 	}
+	IEnumerator resetRagdoll(float time) {
+		print("Counting");
+		yield return new WaitForSeconds(time);
+		print("Done counting");
+		isRagdoll = false;
+	}
 	void OnCollisionEnter2D(Collision2D collision) {
 		if (collision.gameObject.tag == "Enemy") {
 			handleDamage(collision.gameObject.GetComponent<Enemy>().getDamage());
@@ -51,13 +59,17 @@ public class Player : MonoBehaviour {
 		uiController.updateHealthBar(healthMax, healthCurrent);
 	}
 	void knockBack(float knockbackForce, Vector2 direction) {
+		isRagdoll = true;
+
 		float horizontalDirection = -Mathf.Sign(direction.x);
-		Vector2 knockback = direction * knockbackForce;
+		Vector2 knockback = direction * knockbackForce * -1;
 		print("Knockback: " + knockback);
 		print("Player Velocity: " + rigidbody.velocity);
-		rigidbody.velocity = new Vector2(rigidbody.velocity.x + knockback.x, rigidbody.velocity.y + knockback.y);
+		rigidbody.velocity = rigidbody.velocity + knockback;
+		StartCoroutine(resetRagdoll(ragdollTime));
 	}
 	private void movement() {
+		if (isRagdoll) { return; }
 		float horizontalThrow = CrossPlatformInputManager.GetAxis("Horizontal");
 		Vector2 playerVelocity = new Vector2(horizontalThrow * runSpeed, rigidbody.velocity.y);
 		rigidbody.velocity = playerVelocity;
