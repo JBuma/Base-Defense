@@ -101,7 +101,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1812785119264912}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 5c24edf3f75436e49ae2d0c85416db2f, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -147,9 +147,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a99ad3111a45caa41af1b799fd781a4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 4
+  healthMax: 100
+  runSpeed: 4
   jumpPower: 15
   climbingSpeed: 5
+  ragdollTime: 0.5
+  uiController: {fileID: 0}
 --- !u!212 &212439810882863352
 SpriteRenderer:
   m_ObjectHideFlags: 1

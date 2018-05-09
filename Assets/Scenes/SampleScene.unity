@@ -31923,11 +31923,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 61759588664226444, guid: 5aa4c76c363896e48b3fd77358467889,
+    - target: {fileID: 114012588593265736, guid: 5aa4c76c363896e48b3fd77358467889,
         type: 2}
-      propertyPath: m_Material
+      propertyPath: uiController
       value: 
-      objectReference: {fileID: 6200000, guid: 5c24edf3f75436e49ae2d0c85416db2f, type: 2}
+      objectReference: {fileID: 1794597011}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5aa4c76c363896e48b3fd77358467889, type: 2}
   m_IsPrefabAsset: 0
@@ -32534,23 +32534,6 @@ Prefab:
     - target: {fileID: 1956087707676504, guid: 81e2a48944629de4dafef416ba48f9ac, type: 2}
       propertyPath: m_Name
       value: Cameras (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4891494288774142, guid: 81e2a48944629de4dafef416ba48f9ac, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 2.79
-      objectReference: {fileID: 0}
-    - target: {fileID: 4891494288774142, guid: 81e2a48944629de4dafef416ba48f9ac, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -9.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4891494288774142, guid: 81e2a48944629de4dafef416ba48f9ac, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -10.029297
-      objectReference: {fileID: 0}
-    - target: {fileID: 20393903069969132, guid: 81e2a48944629de4dafef416ba48f9ac,
-        type: 2}
-      propertyPath: orthographic size
-      value: 3.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81e2a48944629de4dafef416ba48f9ac, type: 2}
@@ -47633,6 +47616,12 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5823c6174d524c40a997ac15c4157c5, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &1794597011 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114923231192451168, guid: e5823c6174d524c40a997ac15c4157c5,
+    type: 2}
+  m_PrefabInternal: {fileID: 1678192385}
+  m_Script: {fileID: 11500000, guid: 4e0bc564cae13e0459c12b3f656548de, type: 3}
 --- !u!1 &1982364196
 GameObject:
   m_ObjectHideFlags: 0
