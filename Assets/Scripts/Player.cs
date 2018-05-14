@@ -28,7 +28,6 @@ public class Player : MonoBehaviour {
 		animator = GetComponent<Animator>();
 		colliderBody = GetComponent<CapsuleCollider2D>();
 		colliderFeet = GetComponent<BoxCollider2D>();
-		// uiController = GameObject.FindObjectOfType<UIController>();
 	}
 	void initializeVars() {
 		healthCurrent = healthMax;
@@ -43,9 +42,7 @@ public class Player : MonoBehaviour {
 		climbing();
 	}
 	IEnumerator resetRagdoll(float time) {
-		print("Counting");
 		yield return new WaitForSeconds(time);
-		print("Done counting");
 		isRagdoll = false;
 	}
 	void OnCollisionEnter2D(Collision2D collision) {
@@ -61,10 +58,7 @@ public class Player : MonoBehaviour {
 	void knockBack(float knockbackForce, Vector2 direction) {
 		isRagdoll = true;
 
-		float horizontalDirection = -Mathf.Sign(direction.x);
 		Vector2 knockback = direction * knockbackForce * -1;
-		print("Knockback: " + knockback);
-		print("Player Velocity: " + rigidbody.velocity);
 		rigidbody.velocity = rigidbody.velocity + knockback;
 		StartCoroutine(resetRagdoll(ragdollTime));
 	}

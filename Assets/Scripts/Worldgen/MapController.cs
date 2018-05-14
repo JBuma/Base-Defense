@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 [ExecuteInEditMode]
 public class MapController : MonoBehaviour {
-	public bool generateMap;
+	public bool generateMap = false;
 
 	[SerializeField] int mapWidth = 10;
 	[SerializeField] int mapHeight = 10;
@@ -16,16 +16,17 @@ public class MapController : MonoBehaviour {
 	[SerializeField] Tile backgroundTile;
 	[SerializeField] Tilemap tilemap;
 	[SerializeField] Tilemap background;
-	public Map map;
-
-	// Use this for initialization
-	void Start() {
+	[SerializeField] int minHeight = 10;
+	[SerializeField] int maxHeight = 10;
+	Map map;
+	private void Start() {
 		generateNewMap();
 	}
+
 	void generateNewMap() {
 		tilemap.ClearAllTiles();
 		background.ClearAllTiles();
-		map = new Map(blockChance, smoothRate, mapWidth, mapHeight);
+		map = new Map(blockChance, smoothRate, mapWidth, mapHeight, minHeight, maxHeight);
 		renderMap();
 	}
 	void renderMap() {
@@ -33,23 +34,31 @@ public class MapController : MonoBehaviour {
 			for (int y = 0; y < map.getHeight(); y++) {
 				Vector3Int position = new Vector3Int(x, y, 0);
 				background.SetTile(position, backgroundTile);
-
-				switch (map.getTileAt(x, y).getTileType()) {
-					case MapTile.TileType.Ground:
-						tilemap.SetTile(position, groundTile);
-						break;
-					default:
-						tilemap.SetTile(position, null);
-						break;
-				}
+				setTile(position);
 			}
 		}
 	}
+
+	void setTile(Vector3Int position) {
+		switch (map.getTileAt(position.x, position.y).getTileType()) {
+			case MapTile.TileType.Ground:
+				tilemap.SetTile(position, groundTile);
+				break;
+			default:
+				tilemap.SetTile(position, null);
+				break;
+		}
+	}
+
 	// Script button to generate new map
 	void Update() {
 		if (generateMap) {
 			generateNewMap();
 		}
 		generateMap = false;
+	}
+	public void setTile(int x, int y, MapTile.TileType type) {
+		map.getTileAt(x, y).setTyleType(type);
+		setTile(new Vector3Int(x, y, 0));
 	}
 }

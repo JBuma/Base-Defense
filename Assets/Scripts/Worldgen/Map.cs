@@ -9,23 +9,32 @@ public class Map {
 	int height = 10;
 	float blockChance = 0.3f;
 	int smoothRate = 5;
+	int minHeight = 10;
+	int maxHeight = 10;
+	int lowestGroundBlock;
 
-	public Map(float blockChance, int smoothRate, int width = 10, int height = 10) {
+	PerlinNoise noise;
+
+	public Map(float blockChance, int smoothRate, int width = 10, int height = 10, int minHeight = 10, int maxHeight = 10) {
 		this.width = width;
 		this.height = height;
 		this.blockChance = blockChance;
 		this.smoothRate = smoothRate;
+		this.minHeight = minHeight;
+		this.maxHeight = maxHeight;
+		lowestGroundBlock = minHeight;
+
+		noise = new PerlinNoise(Random.Range(100000, 100000000));
 
 		tiles = new MapTile[width, height];
 
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				tiles[x, y] = new MapTile(x, y);
-				if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
-					tiles[x, y].setTyleType(MapTile.TileType.Ground);
-				}
 			}
 		}
+		generateGroundLevel();
+		// setEdges();
 		randomizeMap();
 
 		for (int i = 0; i < smoothRate; i++) {
@@ -34,12 +43,35 @@ public class Map {
 
 		// Debug.Log("Map created with " + (width * height) + " tiles");
 	}
+	void generateGroundLevel() {
+		int lowest = maxHeight;
+		for (int x = 0; x < width; x++) {
+			int columnHeight = minHeight + noise.getNoise(x, maxHeight - minHeight);
+			if (columnHeight < lowest) {
+				lowest = columnHeight;
+			}
+			for (int y = 0; y < columnHeight; y++) {
+				tiles[x, y].setTyleType(MapTile.TileType.Ground);
+			}
+		}
+		lowestGroundBlock = lowest;
+	}
+	void setEdges() {
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
+					tiles[x, y].setTyleType(MapTile.TileType.Ground);
+				}
+			}
+		}
+	}
 	void randomizeMap() {
 		for (int x = 0; x < getWidth(); x++) {
-			for (int y = 0; y < getHeight(); y++) {
-				Vector3Int position = new Vector3Int(x, y, 0);
+			for (int y = 0; y < maxHeight; y++) {
 				if (Random.Range(0f, 1f) < blockChance) {
-					getTileAt(x, y).setTyleType(MapTile.TileType.Ground);
+					tiles[x, y].setTyleType(MapTile.TileType.Ground);
+				} else {
+					tiles[x, y].setTyleType(MapTile.TileType.Empty);
 				}
 			}
 		}
