@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4608875289141094}
   - component: {fileID: 114999394013735370}
   - component: {fileID: 114294358961055222}
+  - component: {fileID: 114861190397746080}
   m_Layer: 0
   m_Name: Inventory
   m_TagString: Untagged
@@ -52,9 +53,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6804f10a6a3c9644f9a75d75f2dcf74f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isOpen: 1
   inventoryPanel: {fileID: 0}
   slotPanel: {fileID: 0}
+  inventorySlot: {fileID: 1186084626399462, guid: 78c91ed82dcb705488057cd5d25588f2,
+    type: 2}
+  inventoryItem: {fileID: 1150000413699566, guid: 9c488fbbf775bbb4b8d828fefe006ef7,
+    type: 2}
+  slotAmount: 42
   slots: []
+--- !u!114 &114861190397746080
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1129439088993652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ce7e3ef7c333414e8037f248ab08d02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMoving: 0
+  movingItem: {fileID: 0}
 --- !u!114 &114999394013735370
 MonoBehaviour:
   m_ObjectHideFlags: 1

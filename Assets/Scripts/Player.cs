@@ -20,6 +20,20 @@ public class Player : MonoBehaviour {
 	CapsuleCollider2D colliderBody;
 	BoxCollider2D colliderFeet;
 	[SerializeField] UIController uiController;
+	[SerializeField] Inventory inventory;
+	Hotbar hotbar;
+
+	private KeyCode[] keyCodes = {
+		KeyCode.Alpha1,
+		KeyCode.Alpha2,
+		KeyCode.Alpha3,
+		KeyCode.Alpha4,
+		KeyCode.Alpha5,
+		KeyCode.Alpha6,
+		KeyCode.Alpha7,
+		KeyCode.Alpha8,
+		KeyCode.Alpha9,
+	};
 
 	void Start() {
 		initializeVars();
@@ -28,6 +42,7 @@ public class Player : MonoBehaviour {
 		animator = GetComponent<Animator>();
 		colliderBody = GetComponent<CapsuleCollider2D>();
 		colliderFeet = GetComponent<BoxCollider2D>();
+		hotbar = inventory.GetComponent<Hotbar>();
 	}
 	void initializeVars() {
 		healthCurrent = healthMax;
@@ -40,6 +55,34 @@ public class Player : MonoBehaviour {
 		movement();
 		jumping();
 		climbing();
+		if (Input.GetKeyUp(KeyCode.E)) {
+			inventory.toggleInventory();
+		}
+		changeHotbarSlot();
+	}
+
+	void changeHotbarSlot() {
+		if (Input.GetAxisRaw("Mouse ScrollWheel") > 0f) {
+			Debug.Log(Input.GetAxisRaw("Mouse ScrollWheel") > 0f);
+			hotbar.changeSlot(hotbar.activeSlot - 1);
+		} else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0f) {
+			Debug.Log(Input.GetAxisRaw("Mouse ScrollWheel") < 0f);
+			hotbar.changeSlot(hotbar.activeSlot + 1);
+		}
+		for (int i = 0; i < keyCodes.Length; i++) {
+			if (Input.GetKeyDown(keyCodes[i])) {
+				hotbar.changeSlot(i);
+			}
+		}
+		if (Input.GetKeyUp(KeyCode.Alpha0)) {
+			hotbar.changeSlot(9);
+		}
+		if (Input.GetKeyUp(KeyCode.Minus)) {
+			hotbar.changeSlot(10);
+		}
+		if (Input.GetKeyUp(KeyCode.Equals)) {
+			hotbar.changeSlot(11);
+		}
 	}
 	IEnumerator resetRagdoll(float time) {
 		yield return new WaitForSeconds(time);

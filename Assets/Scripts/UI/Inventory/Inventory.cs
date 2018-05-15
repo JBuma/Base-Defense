@@ -5,12 +5,17 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour {
 
+	[SerializeField] public int iconSize_Inventory = 60;
+	[SerializeField] public int iconSize_Hotbar = 40;
+
 	public bool isOpen = true;
 	[SerializeField] GameObject inventoryPanel;
 	[SerializeField] GameObject slotPanel;
+	[SerializeField] GameObject hotBarSlotsPanel;
 	[SerializeField] GameObject inventorySlot;
 	[SerializeField] GameObject inventoryItem;
-	[SerializeField] int slotAmount = 42;
+	public int hotbarAmount = 12;
+	int slotAmount = 42;
 	ItemDatabase database;
 
 	public List<Item> items = new List<Item>();
@@ -18,10 +23,17 @@ public class Inventory : MonoBehaviour {
 
 	private void Start() {
 		database = GetComponent<ItemDatabase>();
-		for (int i = 0; i < slotAmount; i++) {
-			items.Add(new Item());
-			slots.Add(Instantiate(inventorySlot, slotPanel.transform));
-			slots[i].GetComponent<Slot>().slotId = i;
+		for (int i = 0; i < slotAmount + hotbarAmount; i++) {
+			if (i < hotbarAmount) {
+				items.Add(new Item());
+				slots.Add(Instantiate(inventorySlot, hotBarSlotsPanel.transform));
+				slots[i].GetComponent<Slot>().slotId = i;
+			} else {
+				items.Add(new Item());
+				slots.Add(Instantiate(inventorySlot, slotPanel.transform));
+				slots[i].GetComponent<Slot>().slotId = i;
+			}
+
 		}
 		addItem(1, 10);
 		addItem(3);
@@ -36,8 +48,19 @@ public class Inventory : MonoBehaviour {
 		}
 		return null;
 	}
+	public void toggleInventory() {
+		isOpen = !isOpen;
+		inventoryPanel.SetActive(isOpen);
+	}
+	public ItemData findItemInSlot(int slotId) {
+		if (isItemInSlot(slotId)) {
+			return slots[slotId].transform.GetChild(0).GetComponent<ItemData>();
+		} else {
+			return null;
+		}
+	}
 	public bool isItemInSlot(int slotId) {
-		Debug.Log("Item in slot " + slotId + ": " + items[slotId].ID);
+		// Debug.Log("Item in slot " + slotId + ": " + items[slotId].ID);
 		return (items[slotId].ID != -1);
 	}
 	bool isItemInInventory(int id) {
