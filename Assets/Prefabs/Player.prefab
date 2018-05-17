@@ -154,6 +154,7 @@ MonoBehaviour:
   climbingSpeed: 5
   ragdollTime: 0.5
   uiController: {fileID: 0}
+  inventory: {fileID: 0}
 --- !u!114 &114391315542573434
 MonoBehaviour:
   m_ObjectHideFlags: 1

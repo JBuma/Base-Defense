@@ -4,18 +4,37 @@ using System.IO;
 using LitJson;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class ItemDatabase : MonoBehaviour {
-	private Dictionary<int, Item> database = new Dictionary<int, Item>();
+	public bool loadDatabase = false;
+	public DataBase_Items database;
 	private JsonData itemData;
 
 	private void Start() {
-		itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + "/StreamingAssets/Items.json"));
-		constructDatabase();
+		generateDatabase();
 	}
-	private void constructDatabase() {
+	public void generateDatabase() {
+		itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + "/StreamingAssets/Items.json"));
+		database = new DataBase_Items(itemData);
+		Debug.Log("Database loaded with " + database.Count + " items.");
+	}
+
+	public Item getItemByID(int id) {
+		if (!database.ContainsKey(id)) { return null; }
+		return database[id];
+	}
+	private void Update() {
+		if (loadDatabase) {
+			generateDatabase();
+		}
+		loadDatabase = false;
+	}
+}
+public class DataBase_Items : Dictionary<int, Item> {
+	public DataBase_Items(JsonData itemData) {
 		for (int i = 0; i < itemData.Count; i++) {
 			Item itemToAdd;
-			// TODO: Rework aaaaalllll of this, make it dynamic. This is just bad. Very bad.
+			// TODO: Rework aaaaalllll of this, make it dynamic. This is baaaad.
 			// FIXME: For real. Fix it.
 			if (itemData[i].ContainsKey("layer")) {
 				itemToAdd = new Item((int) itemData[i]["id"], (string) itemData[i]["title"], (int) itemData[i]["value"],
@@ -26,18 +45,14 @@ public class ItemDatabase : MonoBehaviour {
 					(int) itemData[i]["stats"]["health"], (string) itemData[i]["description"], (bool) itemData[i]["stackable"], (string) itemData[i]["slug"], (string) itemData[i]["type"]
 				);
 			}
-			if (database.ContainsKey((int) itemData[i]["id"])) {
+			if (this.ContainsKey((int) itemData[i]["id"])) {
 				Debug.LogError("Item with id: " + itemData[i]["id"] + " already exists.");
 				return;
 			} else {
-				database[(int) itemData[i]["id"]] = itemToAdd;
+				this [(int) itemData[i]["id"]] = itemToAdd;
 			}
 
 		}
-	}
-	public Item getItemByID(int id) {
-		if (!database.ContainsKey(id)) { return null; }
-		return database[id];
 	}
 }
 public class Item {

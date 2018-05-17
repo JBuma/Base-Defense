@@ -18,7 +18,7 @@ public class Hotbar : MonoBehaviour {
 		}
 	}
 	public void changeSlot(int slotId) {
-		Debug.Log(slotId);
+		// Debug.Log(slotId);
 		inventory.slots[activeSlot].GetComponent<Image>().color = Color.white;
 
 		if (slotId >= inventory.hotbarAmount) {

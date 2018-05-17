@@ -60,7 +60,6 @@ public class Inventory : MonoBehaviour {
 		}
 	}
 	public bool isItemInSlot(int slotId) {
-		// Debug.Log("Item in slot " + slotId + ": " + items[slotId].ID);
 		return (items[slotId].ID != -1);
 	}
 	bool isItemInInventory(int id) {

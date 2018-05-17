@@ -63,10 +63,10 @@ public class Player : MonoBehaviour {
 
 	void changeHotbarSlot() {
 		if (Input.GetAxisRaw("Mouse ScrollWheel") > 0f) {
-			Debug.Log(Input.GetAxisRaw("Mouse ScrollWheel") > 0f);
+			// Debug.Log(Input.GetAxisRaw("Mouse ScrollWheel") > 0f);
 			hotbar.changeSlot(hotbar.activeSlot - 1);
 		} else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0f) {
-			Debug.Log(Input.GetAxisRaw("Mouse ScrollWheel") < 0f);
+			// Debug.Log(Input.GetAxisRaw("Mouse ScrollWheel") < 0f);
 			hotbar.changeSlot(hotbar.activeSlot + 1);
 		}
 		for (int i = 0; i < keyCodes.Length; i++) {
@@ -117,16 +117,14 @@ public class Player : MonoBehaviour {
 
 		//If player is running in either direction
 		if (Mathf.Abs(horizontalThrow) > Mathf.Epsilon) {
-			//Flip sprite based on direction
+			//Flips sprite based on direction
 			transform.localScale = new Vector2(Mathf.Sign(horizontalThrow), transform.localScale.y);
-
 			animator.SetBool("Running", true);
 		} else {
 			animator.SetBool("Running", false);
 		}
 	}
 	private void climbing() {
-
 		// Makes sure the player can keep hanging on the ladder
 		if (isClimbing) {
 			rigidbody.gravityScale = 0f;

@@ -19,14 +19,19 @@ public class MapController : MonoBehaviour {
 	[SerializeField] int minHeight = 10;
 	[SerializeField] int maxHeight = 10;
 	Map map;
+	[SerializeField] ItemDatabase itemDatabase;
+	// Dictionary<int, Tile> tileSprites = new Dictionary<int, Tile>();
 	private void Start() {
+		Debug.Log(itemDatabase.name);
+		Debug.Log(itemDatabase.database);
 		generateNewMap();
 	}
 
 	void generateNewMap() {
+		itemDatabase.generateDatabase();
 		tilemap.ClearAllTiles();
 		background.ClearAllTiles();
-		map = new Map(blockChance, smoothRate, mapWidth, mapHeight, minHeight, maxHeight);
+		map = new Map(itemDatabase.database, blockChance, smoothRate, mapWidth, mapHeight, minHeight, maxHeight);
 		renderMap();
 	}
 	void renderMap() {
@@ -34,19 +39,18 @@ public class MapController : MonoBehaviour {
 			for (int y = 0; y < map.getHeight(); y++) {
 				Vector3Int position = new Vector3Int(x, y, 0);
 				background.SetTile(position, backgroundTile);
-				setTile(position);
+				renderTile(position);
 			}
 		}
 	}
 
-	void setTile(Vector3Int position) {
-		switch (map.getTileAt(position.x, position.y).getTileType()) {
-			case MapTile.TileType.Ground:
-				tilemap.SetTile(position, groundTile);
-				break;
-			default:
-				tilemap.SetTile(position, null);
-				break;
+	void renderTile(Vector3Int position) {
+		MapTile tileToRender = map.getTileAt(position.x, position.y);
+		if (tileToRender.item.ID == -1) {
+			tilemap.SetTile(position, null);
+		} else {
+			// Debug.Log("Set the tile at" + position.x + "," + position.y + " with sprite: " + tileToRender.sprite);
+			tilemap.SetTile(position, tileToRender);
 		}
 	}
 
@@ -57,8 +61,8 @@ public class MapController : MonoBehaviour {
 		}
 		generateMap = false;
 	}
-	public void setTile(int x, int y, MapTile.TileType type) {
-		map.getTileAt(x, y).setTyleType(type);
-		setTile(new Vector3Int(x, y, 0));
+	public void setTile(int x, int y, Item item) {
+		map.setTileAt(x, y, item);
+		renderTile(new Vector3Int(x, y, 0));
 	}
 }

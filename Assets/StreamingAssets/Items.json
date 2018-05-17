@@ -1,7 +1,7 @@
 [{
 		"id": 0,
 		"title": "Basic Block",
-		"value": 1,
+		"value": 0,
 		"stats": {
 			"health": 50
 		},

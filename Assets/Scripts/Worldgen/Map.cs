@@ -12,10 +12,12 @@ public class Map {
 	int minHeight = 10;
 	int maxHeight = 10;
 	int lowestGroundBlock;
+	Dictionary<int, Item> itemDatabase;
 
 	PerlinNoise noise;
 
-	public Map(float blockChance, int smoothRate, int width = 10, int height = 10, int minHeight = 10, int maxHeight = 10) {
+	public Map(Dictionary<int, Item> itemDatabase, float blockChance, int smoothRate, int width = 10, int height = 10, int minHeight = 10, int maxHeight = 10) {
+		this.itemDatabase = itemDatabase;
 		this.width = width;
 		this.height = height;
 		this.blockChance = blockChance;
@@ -23,6 +25,7 @@ public class Map {
 		this.minHeight = minHeight;
 		this.maxHeight = maxHeight;
 		lowestGroundBlock = minHeight;
+		// Debug.Log("Itemdatabase: " + itemDatabase);
 
 		noise = new PerlinNoise(Random.Range(100000, 100000000));
 
@@ -30,20 +33,22 @@ public class Map {
 
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				tiles[x, y] = new MapTile(x, y);
+				// tiles[x, y] = new MapTile(x, y, new Item());
+				tiles[x, y] = ScriptableObject.CreateInstance<MapTile>();
+				tiles[x, y].setTileItem(new Item());
 			}
 		}
 		generateGroundLevel();
 		// setEdges();
 		randomizeMap();
 
-		for (int i = 0; i < smoothRate; i++) {
+		for (int i = 0; i < this.smoothRate; i++) {
 			smoothMap();
 		}
-
-		// Debug.Log("Map created with " + (width * height) + " tiles");
+		Debug.Log("Map created with " + (width * height) + " tiles");
 	}
 	void generateGroundLevel() {
+		Debug.Log(this.itemDatabase);
 		int lowest = maxHeight;
 		for (int x = 0; x < width; x++) {
 			int columnHeight = minHeight + noise.getNoise(x, maxHeight - minHeight);
@@ -51,7 +56,12 @@ public class Map {
 				lowest = columnHeight;
 			}
 			for (int y = 0; y < columnHeight; y++) {
-				tiles[x, y].setTyleType(MapTile.TileType.Ground);
+				// Debug.Log("(" + x + ", " + y + ") :" + itemDatabase[0].Title);
+				// tiles[x, y].setTyleType(MapTile.TileType.Ground);
+				if (columnHeight < height) {
+					tiles[x, y].setTileItem(itemDatabase[0]);
+					// Debug.Log(tiles[x, y].sprite);
+				}
 			}
 		}
 		lowestGroundBlock = lowest;
@@ -60,7 +70,7 @@ public class Map {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
-					tiles[x, y].setTyleType(MapTile.TileType.Ground);
+					tiles[x, y].setTileItem(itemDatabase[0]);
 				}
 			}
 		}
@@ -69,9 +79,11 @@ public class Map {
 		for (int x = 0; x < getWidth(); x++) {
 			for (int y = 0; y < maxHeight; y++) {
 				if (Random.Range(0f, 1f) < blockChance) {
-					tiles[x, y].setTyleType(MapTile.TileType.Ground);
+					// tiles[x, y].setTyleType(MapTile.TileType.Ground);
+					tiles[x, y].setTileItem(itemDatabase[0]);
 				} else {
-					tiles[x, y].setTyleType(MapTile.TileType.Empty);
+					// tiles[x, y].setTyleType(MapTile.TileType.Empty);
+					tiles[x, y].setTileItem(new Item());
 				}
 			}
 		}
@@ -81,9 +93,9 @@ public class Map {
 			for (int y = 0; y < getHeight(); y++) {
 				int neighbourTiles = GetSurroundingWallCount(x, y);
 				if (neighbourTiles > 4) {
-					tiles[x, y].setTyleType(MapTile.TileType.Ground);
+					tiles[x, y].setTileItem(itemDatabase[0]);
 				} else if (neighbourTiles <= 4) {
-					tiles[x, y].setTyleType(MapTile.TileType.Empty);
+					tiles[x, y].setTileItem(new Item());
 				}
 			}
 		}
@@ -97,7 +109,9 @@ public class Map {
 				if (neighbourX > 0 && neighbourX < getWidth() && neighbourY > 0 && neighbourY < getHeight()) {
 					// Not tile itself
 					if (neighbourX != tileX || neighbourY != tileY) {
-						if (tiles[neighbourX, neighbourY].getTileType() == MapTile.TileType.Ground) {
+						// Debug.Log(tiles[neighbourX, neighbourY].item);
+						// Debug.Log("Item name at tile (" + neighbourX + ", " + neighbourY + "): " + tiles[neighbourX, neighbourY].getTileItem().Title);
+						if (tiles[neighbourX, neighbourY].item.ID != -1) {
 							wallCount++;
 						}
 					}
@@ -114,6 +128,11 @@ public class Map {
 			return null;
 		} else {
 			return tiles[x, y];
+		}
+	}
+	public void setTileAt(int x, int y, Item item) {
+		if (tiles[x, y] != null) {
+			tiles[x, y].setTileItem(item);
 		}
 	}
 	public int getWidth() {
