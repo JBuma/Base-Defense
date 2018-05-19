@@ -46,5 +46,17 @@
 		"slug": "ladder",
 		"type": "block",
 		"layer": "Climbing"
+	},
+	{
+		"id": 4,
+		"title": "Arrow",
+		"value": 2,
+		"stats": {
+			"health": 25
+		},
+		"description": "A basic arrow used for hunting.",
+		"stackable": true,
+		"slug": "arrow_basic",
+		"type": "item"
 	}
 ]

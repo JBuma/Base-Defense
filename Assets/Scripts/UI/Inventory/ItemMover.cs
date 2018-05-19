@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemMover : MonoBehaviour {
-
 	Inventory inventory;
 	Tooltip tooltip;
 	public bool isMoving = false;

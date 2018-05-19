@@ -132,15 +132,9 @@ public class Player : MonoBehaviour {
 			rigidbody.gravityScale = 1f;
 		}
 
-		if (!colliderFeet.IsTouchingLayers(LayerMask.GetMask("Climbing"))) {
-			isClimbing = false;
-			animator.SetBool("Climbing", false);
-			return;
-		}
-
 		float verticalThrow = CrossPlatformInputManager.GetAxis("Vertical");
 
-		if (Mathf.Abs(verticalThrow) > Mathf.Epsilon) {
+		if (colliderFeet.IsTouchingLayers(LayerMask.GetMask("Climbing")) && (Mathf.Abs(verticalThrow) > Mathf.Epsilon)) {
 			//Flip sprite based on direction
 			rigidbody.velocity = new Vector2(rigidbody.velocity.x, verticalThrow * climbingSpeed);
 			animator.SetBool("Climbing", true);
@@ -148,6 +142,11 @@ public class Player : MonoBehaviour {
 		}
 		if (isClimbing && CrossPlatformInputManager.GetButtonUp("Vertical")) {
 			rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0f);
+		}
+		if (!colliderFeet.IsTouchingLayers(LayerMask.GetMask("Climbing"))) {
+			isClimbing = false;
+			animator.SetBool("Climbing", false);
+			return;
 		}
 	}
 	private void jumping() {

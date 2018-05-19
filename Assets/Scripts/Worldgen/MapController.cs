@@ -16,6 +16,7 @@ public class MapController : MonoBehaviour {
 	[SerializeField] Tile backgroundTile;
 	[SerializeField] Tilemap tilemap;
 	[SerializeField] Tilemap background;
+	[SerializeField] Tilemap climbing;
 	[SerializeField] int minHeight = 10;
 	[SerializeField] int maxHeight = 10;
 	Map map;
@@ -50,7 +51,14 @@ public class MapController : MonoBehaviour {
 			tilemap.SetTile(position, null);
 		} else {
 			// Debug.Log("Set the tile at" + position.x + "," + position.y + " with sprite: " + tileToRender.sprite);
-			tilemap.SetTile(position, tileToRender);
+			switch (tileToRender.item.Layer) {
+				case "Climbing":
+					climbing.SetTile(position, tileToRender);
+					break;
+				default:
+					tilemap.SetTile(position, tileToRender);
+					break;
+			}
 		}
 	}
 

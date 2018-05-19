@@ -39,6 +39,7 @@ public class Inventory : MonoBehaviour {
 		addItem(3);
 		addItem(2);
 		addItem(1);
+		addItem(4, 20);
 	}
 	public GameObject findItemInInventory(int id) {
 		for (int i = 0; i < slots.Count; i++) {
@@ -87,6 +88,9 @@ public class Inventory : MonoBehaviour {
 					data.item = itemToAdd;
 					data.slotId = i;
 					slot.slotId = i;
+					if (slot.slotId < hotbarAmount) {
+						itemObj.GetComponent<RectTransform>().sizeDelta = new Vector2(iconSize_Hotbar, iconSize_Hotbar);
+					}
 					itemObj.transform.localPosition = Vector3.zero;
 					itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
 					itemObj.name = itemToAdd.Title;
