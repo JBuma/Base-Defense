@@ -2,21 +2,25 @@
 using System.Collections.Generic;
 using System.IO;
 using LitJson;
+using Newtonsoft.Json;
 using UnityEngine;
 
 [ExecuteInEditMode]
 public class ItemDatabase : MonoBehaviour {
 	public bool loadDatabase = false;
 	public DataBase_Items database;
-	private JsonData itemData;
+	// private JsonData itemData;
+	public List<Item> itemDatabase { get; set; }
 
 	private void Start() {
 		generateDatabase();
+
 	}
 	public void generateDatabase() {
-		itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + "/StreamingAssets/Items.json"));
-		database = new DataBase_Items(itemData);
-		Debug.Log("Database loaded with " + database.Count + " items.");
+		// itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + "/StreamingAssets/Items.json"));
+		// Item_Collection itemData = JsonUtility.FromJson<Item_Collection>(File.ReadAllText(Application.dataPath + "/StreamingAssets/Items.json"));
+		itemDatabase = JsonConvert.DeserializeObject<List<Item>>(File.ReadAllText(Application.dataPath + "/StreamingAssets/Items.json"));
+		Debug.Log(itemDatabase[0].Title);
 	}
 
 	public Item getItemByID(int id) {
@@ -30,29 +34,27 @@ public class ItemDatabase : MonoBehaviour {
 		loadDatabase = false;
 	}
 }
-public class DataBase_Items : Dictionary<int, Item> {
-	public DataBase_Items(JsonData itemData) {
-		for (int i = 0; i < itemData.Count; i++) {
-			Item itemToAdd;
-			// TODO: Rework aaaaalllll of this, make it dynamic. This is baaaad.
-			// FIXME: For real. Fix it.
-			if (itemData[i].ContainsKey("layer")) {
-				itemToAdd = new Item((int) itemData[i]["id"], (string) itemData[i]["title"], (int) itemData[i]["value"],
-					(int) itemData[i]["stats"]["health"], (string) itemData[i]["description"], (bool) itemData[i]["stackable"], (string) itemData[i]["slug"], (string) itemData[i]["type"], (string) itemData[i]["layer"]
-				);
-			} else {
-				itemToAdd = new Item((int) itemData[i]["id"], (string) itemData[i]["title"], (int) itemData[i]["value"],
-					(int) itemData[i]["stats"]["health"], (string) itemData[i]["description"], (bool) itemData[i]["stackable"], (string) itemData[i]["slug"], (string) itemData[i]["type"]
-				);
-			}
-			if (this.ContainsKey((int) itemData[i]["id"])) {
-				Debug.LogError("Item with id: " + itemData[i]["id"] + " already exists.");
-				return;
-			} else {
-				this [(int) itemData[i]["id"]] = itemToAdd;
-			}
 
-		}
+[System.Serializable]
+public struct Common_Data {
+	public string Type;
+}
+public class Item_Collection {
+	public Common_Data[] values;
+}
+public class DataBase_Items : Dictionary<int, Item> {
+	public DataBase_Items(Item_Collection itemData) {
+		// foreach (Data item in itemData.values) {
+		// 	Item itemToAdd = item;
+		// 	itemToAdd.Sprite = Resources.Load<Sprite>("Sprites/" + item.Type + "s/" + item.Slug);
+		// 	if (this.ContainsKey((int) item.ID)) {
+		// 		Debug.LogError("Item with id: " + item.ID + " already exists.");
+		// 		return;
+		// 	} else {
+		// 		this [(int) item.ID] = itemToAdd;
+		// 	}
+
+		// }
 	}
 }
 // public class Item {

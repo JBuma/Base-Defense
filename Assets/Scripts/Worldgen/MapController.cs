@@ -21,14 +21,14 @@ public class MapController : MonoBehaviour {
 	[SerializeField] int maxHeight = 10;
 	Map map;
 	[SerializeField] ItemDatabase itemDatabase;
-	// Dictionary<int, Tile> tileSprites = new Dictionary<int, Tile>();
 	private void Start() {
-		Debug.Log(itemDatabase.name);
-		Debug.Log(itemDatabase.database);
+		// Debug.Log(itemDatabase.name);
+		// Debug.Log(itemDatabase.database);
 		generateNewMap();
 	}
 
 	void generateNewMap() {
+		// Debug.Log("wat");
 		itemDatabase.generateDatabase();
 		tilemap.ClearAllTiles();
 		background.ClearAllTiles();
@@ -50,21 +50,13 @@ public class MapController : MonoBehaviour {
 		if (tileToRender.item.ID == -1) {
 			tilemap.SetTile(position, null);
 		} else {
-			// Debug.Log("Set the tile at" + position.x + "," + position.y + " with sprite: " + tileToRender.sprite);
-			switch (tileToRender.item.Layer) {
-				case "Climbing":
-					climbing.SetTile(position, tileToRender);
-					break;
-				default:
-					tilemap.SetTile(position, tileToRender);
-					break;
-			}
+			tilemap.SetTile(position, tileToRender);
 		}
 	}
-
 	// Script button to generate new map
 	void Update() {
 		if (generateMap) {
+			// Debug.Log("WHYYY");
 			generateNewMap();
 		}
 		generateMap = false;

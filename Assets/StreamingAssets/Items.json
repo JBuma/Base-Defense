@@ -1,62 +1,54 @@
 [{
-		"id": 0,
-		"title": "Basic Block",
-		"value": 0,
-		"stats": {
-			"health": 50
-		},
-		"description": "The most Basic Block, you shouldn't be able to see this. Cheater.",
-		"stackable": true,
-		"slug": "basic_block",
-		"type": "block"
+		"ID": 0,
+		"Title": "Basic Block",
+		"Value": 0,
+		"Description": "The most Basic Block, you shouldn't be able to see this. Cheater.",
+		"Stackable": true,
+		"Slug": "basic_block",
+		"Type": "block",
+		"Layer": "Ground",
+		"Health": 25
 	},
 	{
-		"id": 1,
-		"title": "Grass Block",
-		"value": 5,
-		"stats": {
-			"health": 10
-		},
-		"description": "Grass, nice and soft.",
-		"stackable": true,
-		"slug": "grass_block",
-		"type": "block"
+		"ID": 1,
+		"Title": "Grass Block",
+		"Value": 5,
+		"Description": "Grass, nice and soft.",
+		"Stackable": true,
+		"Slug": "grass_block",
+		"Type": "block",
+		"Layer": "Ground",
+		"Health": 5
 	},
 	{
-		"id": 2,
-		"title": "Steel Block",
-		"value": 20,
-		"stats": {
-			"health": 100
-		},
-		"description": "A tough material, used for reinforcing buildings.",
-		"stackable": false,
-		"slug": "steel_block",
-		"type": "block"
+		"ID": 2,
+		"Title": "Steel Block",
+		"Value": 20,
+		"Description": "A tough material, used for reinforcing buildings.",
+		"Stackable": false,
+		"Slug": "steel_block",
+		"Type": "block",
+		"Layer": "Ground",
+		"Health": 50
 	},
 	{
-		"id": 3,
-		"title": "Ladder",
-		"value": 10,
-		"stats": {
-			"health": 25
-		},
-		"description": "Climby climby.",
-		"stackable": false,
-		"slug": "ladder",
-		"type": "block",
-		"layer": "Climbing"
+		"ID": 3,
+		"Title": "Ladder",
+		"Value": 10,
+		"Description": "Climby climby.",
+		"Stackable": false,
+		"Slug": "ladder",
+		"Type": "block",
+		"Layer": "Ground",
+		"Health": 20
 	},
 	{
-		"id": 4,
-		"title": "Arrow",
-		"value": 2,
-		"stats": {
-			"health": 25
-		},
-		"description": "A basic arrow used for hunting.",
-		"stackable": true,
-		"slug": "arrow_basic",
-		"type": "item"
+		"ID": 4,
+		"Title": "Arrow",
+		"Value": 2,
+		"Description": "A basic arrow used for hunting.",
+		"Stackable": true,
+		"Slug": "arrow_basic",
+		"Type": "item"
 	}
 ]
