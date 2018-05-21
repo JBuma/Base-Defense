@@ -23,7 +23,7 @@ public class Tooltip : MonoBehaviour {
 		tooltip.SetActive(false);
 	}
 	private void constructDataString() {
-		data = item.Title;
+		data = item.ItemName;
 		text.text = data;
 	}
 }

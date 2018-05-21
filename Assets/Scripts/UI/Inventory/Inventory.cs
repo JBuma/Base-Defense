@@ -73,7 +73,7 @@ public class Inventory : MonoBehaviour {
 	}
 	public void addItem(int id, int amount = 1) {
 		Item itemToAdd = database.getItemByID(id);
-		if (itemToAdd.Stackable && isItemInInventory(id)) {
+		if (itemToAdd.getAttributeOfType<StackableAttribute>().stackable && isItemInInventory(id)) {
 			ItemData data = findItemInInventory(id).transform.GetChild(0).GetComponent<ItemData>();
 			data.amount += amount;
 			data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
@@ -93,8 +93,8 @@ public class Inventory : MonoBehaviour {
 					}
 					itemObj.transform.localPosition = Vector3.zero;
 					itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
-					itemObj.name = itemToAdd.Title;
-					if (itemToAdd.Stackable) {
+					itemObj.name = itemToAdd.ItemName;
+					if (itemToAdd.getAttributeOfType<StackableAttribute>().stackable) {
 						data.amount += amount;
 						data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
 					}

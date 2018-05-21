@@ -1,30 +1,30 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 [System.Serializable]
 public class Item {
 	public int ID;
-	public string Title;
-	public int Value;
-	public string Description;
-	public bool Stackable;
+	public string ItemName;
 	public string Slug;
+	public string Type; //TODO: make into enum
+	public List<ItemAttribute> ItemAttributes;
 	public Sprite Sprite;
-	public string Type;
-	// public string Layer { get; set; }
 
-	public Item(int id, string title, int value, int health, string description, bool stackable, string slug, string type, string layer = "Ground") {
-		this.ID = id;
-		this.Title = title;
-		this.Value = value;
-		this.Description = description;
-		this.Stackable = stackable;
-		this.Slug = slug;
-		this.Sprite = Resources.Load<Sprite>("Sprites/" + type + "s/" + slug);
-		this.Type = type;
-	}
 	public Item() {
-		this.ID = -1;
-		this.Title = null;
+		ItemAttributes = new List<ItemAttribute>();
+		this.Sprite = Resources.Load<Sprite>("Sprites/" + this.Type + "s/" + this.Slug);
+	}
+
+	public void addAttribute(ItemAttribute attribute) {
+		ItemAttributes.Add(attribute);
+	}
+	public TAttribute getAttributeOfType<TAttribute>() where TAttribute : ItemAttribute {
+		foreach (ItemAttribute attr in ItemAttributes) {
+			if (attr is TAttribute) {
+				return attr as TAttribute;
+			}
+		}
+		return null;
 	}
 }

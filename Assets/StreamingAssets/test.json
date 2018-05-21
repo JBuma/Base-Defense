@@ -1,0 +1,42 @@
+{
+	"0": {
+		"ID": 0,
+		"ItemName": "Heavy",
+		"ItemAttributes": {
+			"WeightAttribute, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null": {
+				"$type": "WeightAttribute, Assembly-CSharp",
+				"weight": 10,
+				"name": "",
+				"hideFlags": 0
+			},
+			"ValueAttribute, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null": {
+				"$type": "ValueAttribute, Assembly-CSharp",
+				"value": 2,
+				"name": "",
+				"hideFlags": 0
+			}
+		},
+		"name": "",
+		"hideFlags": 0
+	},
+	"1": {
+		"ID": 1,
+		"ItemName": "Rich",
+		"ItemAttributes": {
+			"WeightAttribute, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null": {
+				"$type": "WeightAttribute, Assembly-CSharp",
+				"weight": 1,
+				"name": "",
+				"hideFlags": 0
+			},
+			"ValueAttribute, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null": {
+				"$type": "ValueAttribute, Assembly-CSharp",
+				"value": 20,
+				"name": "",
+				"hideFlags": 0
+			}
+		},
+		"name": "",
+		"hideFlags": 0
+	}
+}

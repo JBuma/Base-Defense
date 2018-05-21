@@ -1,6 +1,6 @@
 [{
 		"ID": 0,
-		"Title": "Basic Block",
+		"ItemName": "Basic Block",
 		"Value": 0,
 		"Description": "The most Basic Block, you shouldn't be able to see this. Cheater.",
 		"Stackable": true,
@@ -11,7 +11,7 @@
 	},
 	{
 		"ID": 1,
-		"Title": "Grass Block",
+		"ItemName": "Grass Block",
 		"Value": 5,
 		"Description": "Grass, nice and soft.",
 		"Stackable": true,
@@ -22,7 +22,7 @@
 	},
 	{
 		"ID": 2,
-		"Title": "Steel Block",
+		"ItemName": "Steel Block",
 		"Value": 20,
 		"Description": "A tough material, used for reinforcing buildings.",
 		"Stackable": false,
@@ -33,7 +33,7 @@
 	},
 	{
 		"ID": 3,
-		"Title": "Ladder",
+		"ItemName": "Ladder",
 		"Value": 10,
 		"Description": "Climby climby.",
 		"Stackable": false,
@@ -44,7 +44,7 @@
 	},
 	{
 		"ID": 4,
-		"Title": "Arrow",
+		"ItemName": "Arrow",
 		"Value": 2,
 		"Description": "A basic arrow used for hunting.",
 		"Stackable": true,

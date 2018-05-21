@@ -6,11 +6,11 @@ using Newtonsoft.Json;
 using UnityEngine;
 
 [ExecuteInEditMode]
-public class ItemDatabase : MonoBehaviour {
+public class OldItemDatabase : MonoBehaviour {
 	public bool loadDatabase = false;
 	public DataBase_Items database;
 	// private JsonData itemData;
-	public List<Item> itemDatabase { get; set; }
+	public List<OldItem> itemDatabase { get; set; }
 
 	private void Start() {
 		generateDatabase();
@@ -19,7 +19,7 @@ public class ItemDatabase : MonoBehaviour {
 	public void generateDatabase() {
 		// itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + "/StreamingAssets/Items.json"));
 		// Item_Collection itemData = JsonUtility.FromJson<Item_Collection>(File.ReadAllText(Application.dataPath + "/StreamingAssets/Items.json"));
-		itemDatabase = JsonConvert.DeserializeObject<List<Item>>(File.ReadAllText(Application.dataPath + "/StreamingAssets/Items.json"));
+		itemDatabase = JsonConvert.DeserializeObject<List<OldItem>>(File.ReadAllText(Application.dataPath + "/StreamingAssets/Items.json"));
 		Debug.Log(itemDatabase[0].Title);
 	}
 

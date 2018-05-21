@@ -11,7 +11,6 @@ public class MapController : MonoBehaviour {
 	[SerializeField] int mapHeight = 10;
 	[SerializeField][Range(0, 1)] float blockChance;
 	[SerializeField][Range(0, 10)] int smoothRate;
-	// [SerializeField] int gridSize = 32;
 	[SerializeField] Tile groundTile;
 	[SerializeField] Tile backgroundTile;
 	[SerializeField] Tilemap tilemap;
@@ -20,7 +19,7 @@ public class MapController : MonoBehaviour {
 	[SerializeField] int minHeight = 10;
 	[SerializeField] int maxHeight = 10;
 	Map map;
-	[SerializeField] ItemDatabase itemDatabase;
+	[SerializeField] ItemDatabaseController itemDatabase;
 	private void Start() {
 		// Debug.Log(itemDatabase.name);
 		// Debug.Log(itemDatabase.database);
@@ -29,10 +28,10 @@ public class MapController : MonoBehaviour {
 
 	void generateNewMap() {
 		// Debug.Log("wat");
-		itemDatabase.generateDatabase();
+		itemDatabase.generateNewDatabase();
 		tilemap.ClearAllTiles();
 		background.ClearAllTiles();
-		map = new Map(itemDatabase.database, blockChance, smoothRate, mapWidth, mapHeight, minHeight, maxHeight);
+		map = new Map(itemDatabase.itemDatabase, blockChance, smoothRate, mapWidth, mapHeight, minHeight, maxHeight);
 		renderMap();
 	}
 	void renderMap() {
