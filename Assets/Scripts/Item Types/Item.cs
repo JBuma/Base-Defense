@@ -11,13 +11,35 @@ public class Item {
 	public List<ItemAttribute> ItemAttributes;
 	public Sprite Sprite;
 
-	public Item() {
+	public Item(int id) {
+		this.ID = id;
 		ItemAttributes = new List<ItemAttribute>();
+		// Debug.Log(this.ItemName + "Has type: " + this.Type);
+	}
+	public Item() {
+		this.ID = -1;
+		ItemAttributes = new List<ItemAttribute>();
+	}
+	public void loadSprite() {
 		this.Sprite = Resources.Load<Sprite>("Sprites/" + this.Type + "s/" + this.Slug);
+	}
+	public Sprite getSprite() {
+		if (this.Sprite == null) {
+			loadSprite();
+		}
+		return this.Sprite;
 	}
 
 	public void addAttribute(ItemAttribute attribute) {
 		ItemAttributes.Add(attribute);
+	}
+	public bool hasAttributeOfType<TAttribute>() where TAttribute : ItemAttribute {
+		foreach (ItemAttribute attr in ItemAttributes) {
+			if (attr is TAttribute) {
+				return true;
+			}
+		}
+		return false;
 	}
 	public TAttribute getAttributeOfType<TAttribute>() where TAttribute : ItemAttribute {
 		foreach (ItemAttribute attr in ItemAttributes) {

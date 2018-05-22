@@ -42,7 +42,7 @@ public class Player : MonoBehaviour {
 		animator = GetComponent<Animator>();
 		colliderBody = GetComponent<CapsuleCollider2D>();
 		colliderFeet = GetComponent<BoxCollider2D>();
-		hotbar = inventory.GetComponent<Hotbar>();
+		hotbar = uiController.GetComponentInChildren<Hotbar>();
 	}
 	void initializeVars() {
 		healthCurrent = healthMax;

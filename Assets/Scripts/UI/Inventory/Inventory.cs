@@ -18,21 +18,24 @@ public class Inventory : MonoBehaviour {
 	int slotAmount = 42;
 	ItemDatabase database;
 
-	public List<Item> items = new List<Item>();
+	public List<Item> itemList = new List<Item>();
 	public List<GameObject> slots = new List<GameObject>();
 
 	private void Start() {
-		database = GetComponent<ItemDatabase>();
+		// GetComponent<ItemDatabaseController>().generateNewDatabase();
+		Debug.Log(GetComponent<ItemDatabaseController>());
+		database = GetComponent<ItemDatabaseController>().itemDatabase;
 		for (int i = 0; i < slotAmount + hotbarAmount; i++) {
+			itemList.Add(new Item());
 			if (i < hotbarAmount) {
-				items.Add(new Item());
+				// items.Add(new Item());
 				slots.Add(Instantiate(inventorySlot, hotBarSlotsPanel.transform));
-				slots[i].GetComponent<Slot>().slotId = i;
+				// slots[i].GetComponent<Slot>().slotId = i;
 			} else {
-				items.Add(new Item());
 				slots.Add(Instantiate(inventorySlot, slotPanel.transform));
-				slots[i].GetComponent<Slot>().slotId = i;
 			}
+			slots[i].GetComponent<Slot>().slotId = i;
+			// Debug.Log("Slot id " + i + " has item id: " + items[i].ID);
 
 		}
 		addItem(1, 10);
@@ -43,7 +46,7 @@ public class Inventory : MonoBehaviour {
 	}
 	public GameObject findItemInInventory(int id) {
 		for (int i = 0; i < slots.Count; i++) {
-			if (items[i].ID == id) {
+			if (itemList[i].ID == id) {
 				return slots[i];
 			}
 		}
@@ -61,11 +64,11 @@ public class Inventory : MonoBehaviour {
 		}
 	}
 	public bool isItemInSlot(int slotId) {
-		return (items[slotId].ID != -1);
+		return (itemList[slotId].ID != -1);
 	}
 	bool isItemInInventory(int id) {
-		for (int i = 0; i < items.Count; i++) {
-			if (items[i].ID == id) {
+		for (int i = 0; i < itemList.Count; i++) {
+			if (itemList[i].ID == id) {
 				return true;
 			}
 		}
@@ -79,9 +82,9 @@ public class Inventory : MonoBehaviour {
 			data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
 			return;
 		} else {
-			for (int i = 0; i < items.Count; i++) {
-				if (items[i].ID == -1) {
-					items[i] = itemToAdd;
+			for (int i = 0; i < itemList.Count; i++) {
+				if (itemList[i].ID == -1) {
+					itemList[i] = itemToAdd;
 					GameObject itemObj = Instantiate(inventoryItem, slots[i].transform);
 					ItemData data = itemObj.GetComponent<ItemData>();
 					Slot slot = slots[i].GetComponent<Slot>();
@@ -92,7 +95,7 @@ public class Inventory : MonoBehaviour {
 						itemObj.GetComponent<RectTransform>().sizeDelta = new Vector2(iconSize_Hotbar, iconSize_Hotbar);
 					}
 					itemObj.transform.localPosition = Vector3.zero;
-					itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
+					itemObj.GetComponent<Image>().sprite = itemToAdd.getSprite();
 					itemObj.name = itemToAdd.ItemName;
 					if (itemToAdd.getAttributeOfType<StackableAttribute>().stackable) {
 						data.amount += amount;

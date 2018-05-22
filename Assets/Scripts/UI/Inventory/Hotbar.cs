@@ -8,7 +8,7 @@ public class Hotbar : MonoBehaviour {
 	public int activeSlot = 0;
 	// Use this for initialization
 	void Start() {
-		inventory = GetComponent<Inventory>();
+		inventory = GameObject.Find("InventoryController").GetComponent<Inventory>();
 	}
 
 	// Update is called once per frame

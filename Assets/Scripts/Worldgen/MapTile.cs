@@ -11,6 +11,7 @@ public class MapTile : Tile {
 	TileType tileType = TileType.Empty;
 
 	public MapTile(int x, int y, Item item) {
+		this.tileType = TileType.Empty;
 		if (item != null) {
 			this.item = item;
 		} else {
@@ -32,6 +33,9 @@ public class MapTile : Tile {
 		this.tileType = type;
 	}
 	public void setTileItem(Item item) {
+		if (item.Sprite == null) {
+			item.loadSprite();
+		}
 		this.item = item;
 		this.sprite = this.item.Sprite;
 	}
