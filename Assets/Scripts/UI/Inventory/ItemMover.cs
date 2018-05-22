@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemMover : MonoBehaviour {
-	Inventory inventory;
+	public Inventory inventory;
 	Tooltip tooltip;
 	public bool isMoving = false;
 	public ItemData movingItem;
 	private void Start() {
-		inventory = GetComponent<Inventory>();
+		inventory = GameObject.Find("InventoryController").GetComponent<Inventory>();
 		tooltip = GetComponent<Tooltip>();
 	}
 	private void Update() {
@@ -28,9 +28,9 @@ public class ItemMover : MonoBehaviour {
 	}
 	public void dropItem(int slotId) {
 		if (!inventory.isItemInSlot(slotId)) {
-			inventory.items[movingItem.slotId] = new Item();
+			inventory.itemList[movingItem.slotId] = new Item();
 			movingItem.slotId = slotId;
-			inventory.items[slotId] = movingItem.item;
+			inventory.itemList[slotId] = movingItem.item;
 			movingItem.transform.SetParent(inventory.slots[slotId].transform);
 		} else if (inventory.isItemInSlot(slotId)) {
 			ItemData itemInSlot = inventory.findItemInSlot(slotId);

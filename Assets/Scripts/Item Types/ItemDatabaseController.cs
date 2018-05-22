@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 [ExecuteInEditMode]
 public class ItemDatabaseController : MonoBehaviour {
 	public ItemDatabase itemDatabase;
+	public Dictionary<int, MapTile> tileDatabase;
 	private List<Item> itemData;
 	public bool loadDatabase = false;
 	void Start() {
@@ -18,8 +20,13 @@ public class ItemDatabaseController : MonoBehaviour {
 
 		itemData = JsonConvert.DeserializeObject<List<Item>>(File.ReadAllText(Application.dataPath + "/StreamingAssets/AttributeItems.json"), settings);
 		itemDatabase = new ItemDatabase(itemData);
-		Debug.Log(itemDatabase[0].ItemName);
-		Debug.Log(itemDatabase[0].getAttributeOfType<StackableAttribute>().stackable);
+		Debug.Log(itemDatabase[0].ItemName + " has type: " + itemDatabase[0].Type);
+		// foreach (Item item in itemData) {
+		// 	if (item.hasAttributeOfType<TileAttribute>()) {
+		// 		tileDatabase[item.ID] = new MapTile();
+		// 		tileDatabase[item.ID].sprite = itemDatabase[item.ID].Sprite;
+		// 	}
+		// }
 	}
 
 	// Update is called once per frame

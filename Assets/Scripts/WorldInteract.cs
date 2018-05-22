@@ -6,12 +6,12 @@ using UnityEngine.Tilemaps;
 public class WorldInteract : MonoBehaviour {
 	[SerializeField] MapController mapController;
 	[SerializeField] Inventory inventory;
-	ItemDatabase itemDatabase;
+	ItemDatabaseController itemDatabase;
 	Hotbar hotbar;
 
 	private void Start() {
-		hotbar = inventory.GetComponent<Hotbar>();
-		itemDatabase = inventory.GetComponent<ItemDatabase>();
+		hotbar = GameObject.Find("Inventory").GetComponent<Hotbar>();
+		itemDatabase = inventory.GetComponent<ItemDatabaseController>();
 	}
 
 	void Update() {
@@ -39,7 +39,7 @@ public class WorldInteract : MonoBehaviour {
 	}
 	private void placeBlock() {
 		Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		mapController.setTile((int) pos.x, (int) pos.y, inventory.items[hotbar.activeSlot]);
+		mapController.setTile((int) pos.x, (int) pos.y, inventory.itemList[hotbar.activeSlot]);
 	}
 	private void useItem() { // TODO: figure out how to handle different items, hardcoded for now.
 		Debug.Log("Used item");

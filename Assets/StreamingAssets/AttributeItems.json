@@ -20,6 +20,13 @@
 			"stackable": true,
 			"name": "",
 			"hideFlags": 0
+		},
+		{
+			"$type": "TileAttribute, Assembly-CSharp",
+			"sprite": "",
+			"layer": "Ground",
+			"name": "",
+			"hideFlags": 0
 		}
 	]
 }, {
@@ -42,6 +49,13 @@
 		{
 			"$type": "StackableAttribute, Assembly-CSharp",
 			"stackable": true,
+			"name": "",
+			"hideFlags": 0
+		},
+		{
+			"$type": "TileAttribute, Assembly-CSharp",
+			"sprite": "",
+			"layer": "Ground",
 			"name": "",
 			"hideFlags": 0
 		}
@@ -68,6 +82,13 @@
 			"stackable": true,
 			"name": "",
 			"hideFlags": 0
+		},
+		{
+			"$type": "TileAttribute, Assembly-CSharp",
+			"sprite": "",
+			"layer": "Ground",
+			"name": "",
+			"hideFlags": 0
 		}
 	]
 }, {
@@ -92,6 +113,13 @@
 			"stackable": true,
 			"name": "",
 			"hideFlags": 0
+		},
+		{
+			"$type": "TileAttribute, Assembly-CSharp",
+			"sprite": "",
+			"layer": "Ground",
+			"name": "",
+			"hideFlags": 0
 		}
 	]
 }, {
@@ -113,7 +141,7 @@
 		},
 		{
 			"$type": "StackableAttribute, Assembly-CSharp",
-			"stackable": true,
+			"stackable": false,
 			"name": "",
 			"hideFlags": 0
 		}

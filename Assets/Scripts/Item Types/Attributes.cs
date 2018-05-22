@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 [System.Serializable]
 public class ItemAttribute : ScriptableObject { }
@@ -23,7 +24,14 @@ public class StackableAttribute : ItemAttribute {
 }
 public class PlacableAttribute : ItemAttribute {
 	public string layer = "Ground";
-	public PlacableAttribute(string layer) {
+	public PlacableAttribute(string layer = "ground") {
+		this.layer = layer;
+	}
+}
+public class TileAttribute : PlacableAttribute {
+	public Sprite sprite;
+	public TileAttribute(Sprite sprite, string layer = "ground") {
+		this.sprite = sprite;
 		this.layer = layer;
 	}
 }

@@ -27,8 +27,10 @@ public class MapController : MonoBehaviour {
 	}
 
 	void generateNewMap() {
-		// Debug.Log("wat");
 		itemDatabase.generateNewDatabase();
+		for (int i = 0; i < itemDatabase.itemDatabase.Count; i++) {
+			// Debug.Log(itemDatabase.itemDatabase[i].ItemName + " has type: " + itemDatabase.itemDatabase[i].Type);
+		}
 		tilemap.ClearAllTiles();
 		background.ClearAllTiles();
 		map = new Map(itemDatabase.itemDatabase, blockChance, smoothRate, mapWidth, mapHeight, minHeight, maxHeight);
@@ -46,6 +48,7 @@ public class MapController : MonoBehaviour {
 
 	void renderTile(Vector3Int position) {
 		MapTile tileToRender = map.getTileAt(position.x, position.y);
+		// Debug.Log(tileToRender.item.ID);
 		if (tileToRender.item.ID == -1) {
 			tilemap.SetTile(position, null);
 		} else {

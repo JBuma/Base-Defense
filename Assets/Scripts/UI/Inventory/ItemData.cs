@@ -16,9 +16,9 @@ public class ItemData : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 	public bool isDragging = false;
 	void Start() {
 		canvas = GetComponent<Canvas>();
-		inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
-		itemMover = inventory.GetComponent<ItemMover>();
-		tooltip = inventory.GetComponent<Tooltip>();
+		inventory = GameObject.Find("InventoryController").GetComponent<Inventory>();
+		itemMover = GameObject.Find("Canvas").GetComponentInChildren<ItemMover>();
+		tooltip = itemMover.GetComponent<Tooltip>();
 	}
 	public void OnPointerClick(PointerEventData eventData) {
 		if (!itemMover.isMoving) {
