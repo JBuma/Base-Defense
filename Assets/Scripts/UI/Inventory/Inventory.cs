@@ -22,20 +22,19 @@ public class Inventory : MonoBehaviour {
 	public List<GameObject> slots = new List<GameObject>();
 
 	private void Start() {
-		// GetComponent<ItemDatabaseController>().generateNewDatabase();
 		Debug.Log(GetComponent<ItemDatabaseController>());
 		database = GetComponent<ItemDatabaseController>().itemDatabase;
 		for (int i = 0; i < slotAmount + hotbarAmount; i++) {
+
 			itemList.Add(new Item());
+
 			if (i < hotbarAmount) {
-				// items.Add(new Item());
 				slots.Add(Instantiate(inventorySlot, hotBarSlotsPanel.transform));
-				// slots[i].GetComponent<Slot>().slotId = i;
 			} else {
 				slots.Add(Instantiate(inventorySlot, slotPanel.transform));
 			}
+
 			slots[i].GetComponent<Slot>().slotId = i;
-			// Debug.Log("Slot id " + i + " has item id: " + items[i].ID);
 
 		}
 		addItem(1, 10);

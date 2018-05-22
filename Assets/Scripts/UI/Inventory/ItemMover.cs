@@ -37,7 +37,8 @@ public class ItemMover : MonoBehaviour {
 			itemInSlot.transform.SetParent(inventory.slots[movingItem.slotId].transform);
 			itemInSlot.transform.localPosition = new Vector2(0, 0);
 			itemInSlot.slotId = movingItem.slotId;
-
+			inventory.itemList[itemInSlot.slotId] = itemInSlot.item;
+			inventory.itemList[slotId] = movingItem.item;
 			movingItem.slotId = slotId;
 			movingItem.transform.SetParent(inventory.slots[slotId].transform);
 
