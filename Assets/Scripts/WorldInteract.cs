@@ -7,6 +7,7 @@ public class WorldInteract : MonoBehaviour {
 	[SerializeField] MapController mapController;
 	[SerializeField] Inventory inventory;
 	ItemDatabaseController itemDatabase;
+	[SerializeField] GameObject throwable;
 	Hotbar hotbar;
 
 	private void Start() {
@@ -33,7 +34,7 @@ public class WorldInteract : MonoBehaviour {
 			}
 			if (Input.GetMouseButtonDown(1)) {
 				Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-				mapController.setTile((int) pos.x, (int) pos.y, new Item());
+				mapController.setTile((int) pos.x, (int) pos.y, ScriptableObject.CreateInstance<Item>());
 			}
 		}
 	}
@@ -42,6 +43,10 @@ public class WorldInteract : MonoBehaviour {
 		mapController.setTile((int) pos.x, (int) pos.y, inventory.itemList[hotbar.activeSlot]);
 	}
 	private void useItem() { // TODO: figure out how to handle different items, hardcoded for now.
-		Debug.Log("Used item");
+		Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		GameObject item = Instantiate(throwable);
+		// FIXME: Refactor this to not be shit
+		item.transform.position = GameObject.Find("Player").transform.position;
+		item.GetComponent<Rigidbody2D>().AddForce(-(GameObject.Find("Player").transform.position - pos) * inventory.itemList[hotbar.activeSlot].getAttributeOfType<ThrowableAttribute>().velocity);
 	}
 }

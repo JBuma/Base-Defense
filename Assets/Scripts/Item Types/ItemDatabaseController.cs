@@ -27,6 +27,8 @@ public class ItemDatabaseController : MonoBehaviour {
 		// 		tileDatabase[item.ID].sprite = itemDatabase[item.ID].Sprite;
 		// 	}
 		// }
+		Instantiate(itemDatabase[4]);
+		// ScriptableObject.CreateInstance(itemDatabase[4]);
 	}
 
 	// Update is called once per frame

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Item {
+// [System.Serializable]
+public class Item : ScriptableObject {
 	public int ID;
 	public string ItemName;
 	public string Slug;

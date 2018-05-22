@@ -50,9 +50,18 @@ public class MapController : MonoBehaviour {
 		MapTile tileToRender = map.getTileAt(position.x, position.y);
 		// Debug.Log(tileToRender.item.ID);
 		if (tileToRender.item.ID == -1) {
+			climbing.SetTile(position, null);
 			tilemap.SetTile(position, null);
 		} else {
-			tilemap.SetTile(position, tileToRender);
+			switch (tileToRender.item.getAttributeOfType<TileAttribute>().layer) {
+				case "Climbing":
+					climbing.SetTile(position, tileToRender);
+					break;
+				default:
+					tilemap.SetTile(position, tileToRender);
+					break;
+			}
+
 		}
 	}
 	// Script button to generate new map

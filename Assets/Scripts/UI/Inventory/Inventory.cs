@@ -8,7 +8,7 @@ public class Inventory : MonoBehaviour {
 	[SerializeField] public int iconSize_Inventory = 60;
 	[SerializeField] public int iconSize_Hotbar = 40;
 
-	public bool isOpen = true;
+	public bool isOpen;
 	[SerializeField] GameObject inventoryPanel;
 	[SerializeField] GameObject slotPanel;
 	[SerializeField] GameObject hotBarSlotsPanel;
@@ -22,6 +22,7 @@ public class Inventory : MonoBehaviour {
 	public List<GameObject> slots = new List<GameObject>();
 
 	private void Start() {
+		isOpen = false;
 		Debug.Log(GetComponent<ItemDatabaseController>());
 		database = GetComponent<ItemDatabaseController>().itemDatabase;
 		for (int i = 0; i < slotAmount + hotbarAmount; i++) {
@@ -42,6 +43,7 @@ public class Inventory : MonoBehaviour {
 		addItem(2);
 		addItem(1);
 		addItem(4, 20);
+		inventoryPanel.SetActive(false);
 	}
 	public GameObject findItemInInventory(int id) {
 		for (int i = 0; i < slots.Count; i++) {

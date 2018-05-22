@@ -35,3 +35,24 @@ public class TileAttribute : PlacableAttribute {
 		this.layer = layer;
 	}
 }
+public class ConsumableAttribute : ItemAttribute, IConsumable {
+	public void Consume() {
+
+	}
+}
+
+public class ThrowableAttribute : ItemAttribute {
+	public int damage;
+	public float velocity;
+	public Item item;
+
+	public void throwItem(Item item) {
+		GameObject parent = GameObject.Find("Physics Objects");
+		GameObject throwable = Instantiate(new GameObject(), parent.transform);
+		throwable.AddComponent(new Rigidbody2D().GetType());
+		throwable.tag = "Projectiles";
+		throwable.AddComponent(this.GetType());
+		throwable.GetComponent<ThrowableAttribute>().damage = this.damage;
+		throwable.GetComponent<ThrowableAttribute>().item = item;
+	}
+}

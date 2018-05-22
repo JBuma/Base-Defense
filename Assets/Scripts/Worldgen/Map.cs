@@ -37,7 +37,7 @@ public class Map {
 			for (int y = 0; y < height; y++) {
 				// tiles[x, y] = new MapTile(x, y, new Item());
 				tiles[x, y] = ScriptableObject.CreateInstance<MapTile>();
-				tiles[x, y].setTileItem(new Item());
+				tiles[x, y].setTileItem(ScriptableObject.CreateInstance<Item>());
 			}
 		}
 		generateGroundLevel();
@@ -85,7 +85,7 @@ public class Map {
 					tiles[x, y].setTileItem(itemDatabase[0]);
 				} else {
 					tiles[x, y].setTyleType(MapTile.TileType.Empty);
-					tiles[x, y].setTileItem(new Item());
+					tiles[x, y].setTileItem(ScriptableObject.CreateInstance<Item>());
 				}
 			}
 		}
@@ -97,7 +97,7 @@ public class Map {
 				if (neighbourTiles > 4) {
 					tiles[x, y].setTileItem(itemDatabase[0]);
 				} else if (neighbourTiles <= 4) {
-					tiles[x, y].setTileItem(new Item());
+					tiles[x, y].setTileItem(ScriptableObject.CreateInstance<Item>());
 				}
 			}
 		}
