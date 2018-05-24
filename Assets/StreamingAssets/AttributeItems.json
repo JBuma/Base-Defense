@@ -22,7 +22,7 @@
 			"hideFlags": 0
 		},
 		{
-			"$type": "TileAttribute, Assembly-CSharp",
+			"$type": "RuleTileAttribute, Assembly-CSharp",
 			"sprite": "",
 			"layer": "Ground",
 			"name": "",

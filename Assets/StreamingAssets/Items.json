@@ -1,54 +1,17 @@
-[{
-		"ID": 0,
-		"ItemName": "Basic Block",
-		"Value": 0,
-		"Description": "The most Basic Block, you shouldn't be able to see this. Cheater.",
-		"Stackable": true,
-		"Slug": "basic_block",
-		"Type": "block",
-		"Layer": "Ground",
-		"Health": 25
-	},
-	{
-		"ID": 1,
-		"ItemName": "Grass Block",
-		"Value": 5,
-		"Description": "Grass, nice and soft.",
-		"Stackable": true,
-		"Slug": "grass_block",
-		"Type": "block",
-		"Layer": "Ground",
-		"Health": 5
-	},
-	{
-		"ID": 2,
-		"ItemName": "Steel Block",
-		"Value": 20,
-		"Description": "A tough material, used for reinforcing buildings.",
-		"Stackable": false,
-		"Slug": "steel_block",
-		"Type": "block",
-		"Layer": "Ground",
-		"Health": 50
-	},
-	{
-		"ID": 3,
-		"ItemName": "Ladder",
-		"Value": 10,
-		"Description": "Climby climby.",
-		"Stackable": false,
-		"Slug": "ladder",
-		"Type": "block",
-		"Layer": "Ground",
-		"Health": 20
-	},
-	{
-		"ID": 4,
-		"ItemName": "Arrow",
-		"Value": 2,
-		"Description": "A basic arrow used for hunting.",
-		"Stackable": true,
-		"Slug": "arrow_basic",
-		"Type": "item"
-	}
-]
+{
+	"values": [{
+			"ID": 0,
+			"ItemName": "Basic Block",
+			"Slug": "basic_block",
+			"Type": "block",
+			"Layer": "Ground"
+		},
+		{
+			"ID": 1,
+			"ItemName": "Grass Block",
+			"Slug": "grass_block",
+			"Type": "block",
+			"Layer": "Ground"
+		}
+	]
+}

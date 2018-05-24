@@ -29,9 +29,8 @@ public class PlacableAttribute : ItemAttribute {
 	}
 }
 public class TileAttribute : PlacableAttribute {
-	public Sprite sprite;
-	public TileAttribute(Sprite sprite, string layer = "ground") {
-		this.sprite = sprite;
+	public string layer;
+	public TileAttribute(string layer = "Ground") {
 		this.layer = layer;
 	}
 }
@@ -40,7 +39,50 @@ public class ConsumableAttribute : ItemAttribute, IConsumable {
 
 	}
 }
+public class RuleTileAttribute : TileAttribute {
+	public Sprite[] spriteList;
 
+	public RuleTileAttribute() {
+		// this.sprite = sprite;
+		// this.layer = layer;
+	}
+	public void loadSprites(Item item) {
+		this.spriteList = new Sprite[6];
+		for (int i = 0; i < 5; i++) {
+			spriteList[i] = Resources.Load<Sprite>("Sprites/" + item.Type + "s/" + item.Slug + "/" + item.Slug + "_" + i);
+			// Debug.Log(spriteList[i]);
+		}
+		spriteList[5] = Resources.Load<Sprite>("Sprites/" + item.Type + "s/" + item.Slug);
+	}
+	public Sprite getSprite(int spriteValue) {
+		if (this.spriteList == null) { Debug.LogError("SpriteList not found!"); return null; };
+		switch (spriteValue) {
+			case 1:
+			case 2:
+			case 4:
+			case 8:
+				return spriteList[1];
+			case 3:
+			case 5:
+			case 10:
+			case 12:
+				return spriteList[2];
+			case 6:
+			case 9:
+				return spriteList[3];
+			case 7:
+			case 11:
+			case 13:
+			case 14:
+				return spriteList[4];
+			case 15:
+				return spriteList[5];
+			default:
+				return spriteList[0];
+				break;
+		}
+	}
+}
 public class ThrowableAttribute : ItemAttribute {
 	public int damage;
 	public float velocity;

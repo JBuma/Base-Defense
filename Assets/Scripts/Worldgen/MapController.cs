@@ -21,16 +21,11 @@ public class MapController : MonoBehaviour {
 	Map map;
 	[SerializeField] ItemDatabaseController itemDatabase;
 	private void Start() {
-		// Debug.Log(itemDatabase.name);
-		// Debug.Log(itemDatabase.database);
-		generateNewMap();
+		// generateNewMap();
 	}
 
 	void generateNewMap() {
 		itemDatabase.generateNewDatabase();
-		for (int i = 0; i < itemDatabase.itemDatabase.Count; i++) {
-			// Debug.Log(itemDatabase.itemDatabase[i].ItemName + " has type: " + itemDatabase.itemDatabase[i].Type);
-		}
 		tilemap.ClearAllTiles();
 		background.ClearAllTiles();
 		map = new Map(itemDatabase.itemDatabase, blockChance, smoothRate, mapWidth, mapHeight, minHeight, maxHeight);
@@ -48,11 +43,21 @@ public class MapController : MonoBehaviour {
 
 	void renderTile(Vector3Int position) {
 		MapTile tileToRender = map.getTileAt(position.x, position.y);
-		// Debug.Log(tileToRender.item.ID);
 		if (tileToRender.item.ID == -1) {
 			climbing.SetTile(position, null);
 			tilemap.SetTile(position, null);
 		} else {
+			if (tileToRender.item.hasAttributeOfType<RuleTileAttribute>()) {
+				int mask = map.isGroundTile(position.x, position.y + 1) ? 1 : 0;
+				mask += map.isGroundTile(position.x + 1, position.y) ? 2 : 0;
+				mask += map.isGroundTile(position.x, position.y - 1) ? 4 : 0;
+				mask += map.isGroundTile(position.x - 1, position.y) ? 8 : 0;
+				if (tileToRender.item.getAttributeOfType<RuleTileAttribute>().spriteList == null) {
+					tileToRender.item.getAttributeOfType<RuleTileAttribute>().loadSprites(tileToRender.item);
+				}
+				tileToRender.setRuleSprite(tileToRender.item.getAttributeOfType<RuleTileAttribute>().getSprite(mask));
+				Debug.Log(mask + " masknum: " + tileToRender.sprite);
+			}
 			switch (tileToRender.item.getAttributeOfType<TileAttribute>().layer) {
 				case "Climbing":
 					climbing.SetTile(position, tileToRender);
@@ -61,13 +66,11 @@ public class MapController : MonoBehaviour {
 					tilemap.SetTile(position, tileToRender);
 					break;
 			}
-
 		}
 	}
 	// Script button to generate new map
 	void Update() {
 		if (generateMap) {
-			// Debug.Log("WHYYY");
 			generateNewMap();
 		}
 		generateMap = false;

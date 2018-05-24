@@ -132,6 +132,14 @@ public class Map {
 			return tiles[x, y];
 		}
 	}
+	public bool isGroundTile(int x, int y) {
+		if (x >= getWidth() || x <= 0 || y >= getHeight() || y <= 0) {
+			return true;
+			// break;
+		} else {
+			return getTileAt(x, y).getTileType() == MapTile.TileType.Ground;
+		}
+	}
 	public void setTileAt(int x, int y, Item item) {
 		if (tiles[x, y] != null) {
 			tiles[x, y].setTileItem(item);

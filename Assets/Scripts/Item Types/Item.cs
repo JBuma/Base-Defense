@@ -14,7 +14,6 @@ public class Item : ScriptableObject {
 	public Item(int id) {
 		this.ID = id;
 		ItemAttributes = new List<ItemAttribute>();
-		// Debug.Log(this.ItemName + "Has type: " + this.Type);
 	}
 	public Item() {
 		this.ID = -1;

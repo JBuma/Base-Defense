@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class MapTile : Tile {
-
 	public enum TileType { Empty, Ground, Climbing }
 	public Item item;
 
@@ -23,8 +22,11 @@ public class MapTile : Tile {
 		tileData.sprite = this.sprite;
 		tileData.color = Color.white;
 		tileData.colliderType = ColliderType.Grid;
-		// tileData.flags = TileFlags.LockTransform;
+		tileData.flags = TileFlags.LockTransform;
 		// tileData.colliderType = ColliderType.None;
+	}
+	public void setRuleSprite(Sprite sprite) {
+		this.sprite = sprite;
 	}
 	public TileType getTileType() {
 		return tileType;
@@ -33,10 +35,22 @@ public class MapTile : Tile {
 		this.tileType = type;
 	}
 	public void setTileItem(Item item) {
+		this.item = item;
 		if (item.Sprite == null) {
 			item.loadSprite();
 		}
-		this.item = item;
+		if (item.ID == -1) { return; }
+		switch (item.hasAttributeOfType<RuleTileAttribute>() ? item.getAttributeOfType<RuleTileAttribute>().layer : item.getAttributeOfType<TileAttribute>().layer) {
+			case "Climbing":
+				this.tileType = TileType.Climbing;
+				break;
+			case "Ground":
+				this.tileType = TileType.Ground;
+				break;
+			default:
+				this.tileType = TileType.Empty;
+				break;
+		}
 		this.sprite = this.item.Sprite;
 	}
 	public Item getTileItem() {
