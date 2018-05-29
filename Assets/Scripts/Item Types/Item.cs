@@ -19,6 +19,7 @@ public class Item : ScriptableObject {
 		this.ID = -1;
 		ItemAttributes = new List<ItemAttribute>();
 	}
+	// Resources can't be loaded during initialisation, so load them seperately.
 	public void loadSprite() {
 		this.Sprite = Resources.Load<Sprite>("Sprites/" + this.Type + "s/" + this.Slug);
 	}

@@ -8,6 +8,7 @@ public class MapTile : Tile {
 	public Item item;
 
 	TileType tileType = TileType.Empty;
+	Quaternion rotation;
 
 	public MapTile(int x, int y, Item item) {
 		this.tileType = TileType.Empty;
@@ -23,7 +24,8 @@ public class MapTile : Tile {
 		tileData.color = Color.white;
 		tileData.colliderType = ColliderType.Grid;
 		tileData.flags = TileFlags.LockTransform;
-		// tileData.colliderType = ColliderType.None;
+		tileData.transform = Matrix4x4.identity;
+		tileData.transform = Matrix4x4.Rotate(this.rotation);
 	}
 	public void setRuleSprite(Sprite sprite) {
 		this.sprite = sprite;
@@ -39,8 +41,9 @@ public class MapTile : Tile {
 		if (item.Sprite == null) {
 			item.loadSprite();
 		}
-		if (item.ID == -1) { return; }
+		if (item.ID == -1) { this.tileType = TileType.Empty; return; }
 		switch (item.hasAttributeOfType<RuleTileAttribute>() ? item.getAttributeOfType<RuleTileAttribute>().layer : item.getAttributeOfType<TileAttribute>().layer) {
+
 			case "Climbing":
 				this.tileType = TileType.Climbing;
 				break;
@@ -52,6 +55,10 @@ public class MapTile : Tile {
 				break;
 		}
 		this.sprite = this.item.Sprite;
+	}
+	public void setRotation(Quaternion rotation) {
+		this.rotation = rotation;
+
 	}
 	public Item getTileItem() {
 		return this.item;

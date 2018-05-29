@@ -18,17 +18,11 @@ public class ItemDatabaseController : MonoBehaviour {
 		var settings = new JsonSerializerSettings();
 		settings.TypeNameHandling = TypeNameHandling.Auto;
 
-		itemData = JsonConvert.DeserializeObject<List<Item>>(File.ReadAllText(Application.dataPath + "/StreamingAssets/AttributeItems.json"), settings);
+		itemData = JsonConvert.DeserializeObject<List<Item>>(File.ReadAllText(Application.dataPath + "/StreamingAssets/Items.json"), settings);
 		itemDatabase = new ItemDatabase(itemData);
 		Debug.Log(itemDatabase[0].ItemName + " has type: " + itemDatabase[0].Type);
-		// foreach (Item item in itemData) {
-		// 	if (item.hasAttributeOfType<TileAttribute>()) {
-		// 		tileDatabase[item.ID] = new MapTile();
-		// 		tileDatabase[item.ID].sprite = itemDatabase[item.ID].Sprite;
-		// 	}
-		// }
-		Instantiate(itemDatabase[4]);
-		// ScriptableObject.CreateInstance(itemDatabase[4]);
+		// Instantiate(itemDatabase[4]);
+		ScriptableObject.CreateInstance(itemDatabase[4].GetType());
 	}
 
 	// Update is called once per frame

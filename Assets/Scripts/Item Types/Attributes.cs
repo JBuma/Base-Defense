@@ -23,14 +23,13 @@ public class StackableAttribute : ItemAttribute {
 	public StackableAttribute() { }
 }
 public class PlacableAttribute : ItemAttribute {
-	public string layer = "Ground";
-	public PlacableAttribute(string layer = "ground") {
+	public string layer;
+	public PlacableAttribute(string layer) {
 		this.layer = layer;
 	}
 }
 public class TileAttribute : PlacableAttribute {
-	public string layer;
-	public TileAttribute(string layer = "Ground") {
+	public TileAttribute(string layer) : base(layer) {
 		this.layer = layer;
 	}
 }
@@ -42,15 +41,13 @@ public class ConsumableAttribute : ItemAttribute, IConsumable {
 public class RuleTileAttribute : TileAttribute {
 	public Sprite[] spriteList;
 
-	public RuleTileAttribute() {
-		// this.sprite = sprite;
-		// this.layer = layer;
+	public RuleTileAttribute(string layer) : base(layer) {
+		this.layer = layer;
 	}
 	public void loadSprites(Item item) {
 		this.spriteList = new Sprite[6];
 		for (int i = 0; i < 5; i++) {
 			spriteList[i] = Resources.Load<Sprite>("Sprites/" + item.Type + "s/" + item.Slug + "/" + item.Slug + "_" + i);
-			// Debug.Log(spriteList[i]);
 		}
 		spriteList[5] = Resources.Load<Sprite>("Sprites/" + item.Type + "s/" + item.Slug);
 	}
@@ -76,10 +73,28 @@ public class RuleTileAttribute : TileAttribute {
 			case 14:
 				return spriteList[4];
 			case 15:
-				return spriteList[5];
-			default:
 				return spriteList[0];
-				break;
+			default:
+				return spriteList[5];
+		}
+	}
+	public Quaternion getRotation(int mask) {
+		switch (mask) {
+			case 4:
+			case 5:
+			case 13:
+				return Quaternion.Euler(0f, 0f, 90f);
+			case 6:
+			case 1:
+			case 7:
+			case 3:
+				return Quaternion.Euler(0f, 0f, 180f);
+			case 2:
+			case 10:
+			case 11:
+				return Quaternion.Euler(0f, 0f, 270f);
+			default:
+				return Quaternion.Euler(0f, 0f, 0f);
 		}
 	}
 }

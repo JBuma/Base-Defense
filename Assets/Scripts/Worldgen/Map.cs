@@ -13,7 +13,6 @@ public class Map {
 	int minHeight = 10;
 	int maxHeight = 10;
 	int lowestGroundBlock;
-	// Dictionary<int, Item> itemDatabase;
 	ItemDatabase itemDatabase;
 
 	PerlinNoise noise;
@@ -27,7 +26,6 @@ public class Map {
 		this.minHeight = minHeight;
 		this.maxHeight = maxHeight;
 		lowestGroundBlock = minHeight;
-		// Debug.Log("Itemdatabase: " + itemDatabase);
 
 		noise = new PerlinNoise(Random.Range(100000, 100000000));
 
@@ -50,7 +48,6 @@ public class Map {
 		Debug.Log("Map created with " + (width * height) + " tiles");
 	}
 	void generateGroundLevel() {
-		// Debug.Log(this.itemDatabase);
 		int lowest = maxHeight;
 		for (int x = 0; x < width; x++) {
 			int columnHeight = minHeight + noise.getNoise(x, maxHeight - minHeight);
@@ -135,7 +132,6 @@ public class Map {
 	public bool isGroundTile(int x, int y) {
 		if (x >= getWidth() || x <= 0 || y >= getHeight() || y <= 0) {
 			return true;
-			// break;
 		} else {
 			return getTileAt(x, y).getTileType() == MapTile.TileType.Ground;
 		}

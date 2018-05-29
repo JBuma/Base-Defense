@@ -21,6 +21,8 @@ public class ItemMover : MonoBehaviour {
 	public void pickUpItem(ItemData item) {
 		isMoving = true;
 		movingItem = item;
+
+		// Make sure mouse detection still works
 		movingItem.GetComponent<Canvas>().overrideSorting = true;
 		movingItem.GetComponent<Canvas>().sortingOrder = 1;
 		movingItem.GetComponent<CanvasGroup>().blocksRaycasts = false;
@@ -43,6 +45,8 @@ public class ItemMover : MonoBehaviour {
 			movingItem.transform.SetParent(inventory.slots[slotId].transform);
 
 		}
+
+		// Reset mouse detection
 		movingItem.GetComponent<CanvasGroup>().blocksRaycasts = true;
 		movingItem.GetComponent<Canvas>().overrideSorting = false;
 		movingItem.GetComponent<Canvas>().sortingOrder = 0;

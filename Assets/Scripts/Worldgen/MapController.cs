@@ -27,6 +27,7 @@ public class MapController : MonoBehaviour {
 	void generateNewMap() {
 		itemDatabase.generateNewDatabase();
 		tilemap.ClearAllTiles();
+		climbing.ClearAllTiles();
 		background.ClearAllTiles();
 		map = new Map(itemDatabase.itemDatabase, blockChance, smoothRate, mapWidth, mapHeight, minHeight, maxHeight);
 		renderMap();
@@ -43,23 +44,29 @@ public class MapController : MonoBehaviour {
 
 	void renderTile(Vector3Int position) {
 		MapTile tileToRender = map.getTileAt(position.x, position.y);
-		if (tileToRender.item.ID == -1) {
+		if (tileToRender.getTileType() == MapTile.TileType.Empty) {
 			climbing.SetTile(position, null);
 			tilemap.SetTile(position, null);
 		} else {
 			if (tileToRender.item.hasAttributeOfType<RuleTileAttribute>()) {
+				// Check if surrounding tiles are Ground Tiles
 				int mask = map.isGroundTile(position.x, position.y + 1) ? 1 : 0;
-				mask += map.isGroundTile(position.x + 1, position.y) ? 2 : 0;
-				mask += map.isGroundTile(position.x, position.y - 1) ? 4 : 0;
-				mask += map.isGroundTile(position.x - 1, position.y) ? 8 : 0;
+				mask += map.isGroundTile(position.x - 1, position.y) ? 2 : 0;
+				mask += map.isGroundTile(position.x + 1, position.y) ? 4 : 0;
+				mask += map.isGroundTile(position.x, position.y - 1) ? 8 : 0;
+
 				if (tileToRender.item.getAttributeOfType<RuleTileAttribute>().spriteList == null) {
+					// Have to pass in the item because attributes don't have access to the item they're a part of.
 					tileToRender.item.getAttributeOfType<RuleTileAttribute>().loadSprites(tileToRender.item);
 				}
+
 				tileToRender.setRuleSprite(tileToRender.item.getAttributeOfType<RuleTileAttribute>().getSprite(mask));
-				Debug.Log(mask + " masknum: " + tileToRender.sprite);
+				tileToRender.setRotation(tileToRender.item.getAttributeOfType<RuleTileAttribute>().getRotation(mask));
 			}
+
 			switch (tileToRender.item.getAttributeOfType<TileAttribute>().layer) {
 				case "Climbing":
+					Debug.Log(tileToRender + ": is climbing");
 					climbing.SetTile(position, tileToRender);
 					break;
 				default:

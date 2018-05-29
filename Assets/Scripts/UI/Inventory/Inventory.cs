@@ -23,8 +23,9 @@ public class Inventory : MonoBehaviour {
 
 	private void Start() {
 		isOpen = false;
-		Debug.Log(GetComponent<ItemDatabaseController>());
 		database = GetComponent<ItemDatabaseController>().itemDatabase;
+
+		// Setup the inventory slots
 		for (int i = 0; i < slotAmount + hotbarAmount; i++) {
 
 			itemList.Add(new Item());
@@ -38,11 +39,15 @@ public class Inventory : MonoBehaviour {
 			slots[i].GetComponent<Slot>().slotId = i;
 
 		}
+		// Add some test items
 		addItem(1, 10);
 		addItem(3);
 		addItem(2);
 		addItem(1);
 		addItem(4, 20);
+		addItem(0);
+		addItem(5);
+
 		inventoryPanel.SetActive(false);
 	}
 	public GameObject findItemInInventory(int id) {
@@ -77,29 +82,36 @@ public class Inventory : MonoBehaviour {
 	}
 	public void addItem(int id, int amount = 1) {
 		Item itemToAdd = database.getItemByID(id);
-		if (itemToAdd.getAttributeOfType<StackableAttribute>().stackable && isItemInInventory(id)) {
+		if (itemToAdd.hasAttributeOfType<StackableAttribute>() && isItemInInventory(id)) {
 			ItemData data = findItemInInventory(id).transform.GetChild(0).GetComponent<ItemData>();
 			data.amount += amount;
+			// TODO: Move this out in seperate ui manager
 			data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
 			return;
 		} else {
+			// Find an empty slot in the inventory
 			for (int i = 0; i < itemList.Count; i++) {
 				if (itemList[i].ID == -1) {
 					itemList[i] = itemToAdd;
 					GameObject itemObj = Instantiate(inventoryItem, slots[i].transform);
 					ItemData data = itemObj.GetComponent<ItemData>();
+					// FIXME: Not sure why i'm doing this, slots shouldn't change
 					Slot slot = slots[i].GetComponent<Slot>();
 					data.item = itemToAdd;
 					data.slotId = i;
 					slot.slotId = i;
+
+					// Resize Sprite if in hotbar
 					if (slot.slotId < hotbarAmount) {
 						itemObj.GetComponent<RectTransform>().sizeDelta = new Vector2(iconSize_Hotbar, iconSize_Hotbar);
 					}
+
 					itemObj.transform.localPosition = Vector3.zero;
 					itemObj.GetComponent<Image>().sprite = itemToAdd.getSprite();
 					itemObj.name = itemToAdd.ItemName;
-					if (itemToAdd.getAttributeOfType<StackableAttribute>().stackable) {
+					if (itemToAdd.hasAttributeOfType<StackableAttribute>()) {
 						data.amount += amount;
+						// FIXME: Again, move this out
 						data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
 					}
 					break;

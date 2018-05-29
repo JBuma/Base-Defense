@@ -94,10 +94,6 @@ public class Player : MonoBehaviour {
 			knockBack(10f, collision.transform.position - transform.position);
 		}
 	}
-	void handleDamage(int damage) {
-		healthCurrent -= damage;
-		uiController.updateHealthBar(healthMax, healthCurrent);
-	}
 	void knockBack(float knockbackForce, Vector2 direction) {
 		isRagdoll = true;
 
@@ -105,6 +101,11 @@ public class Player : MonoBehaviour {
 		rigidbody.velocity = rigidbody.velocity + knockback;
 		StartCoroutine(resetRagdoll(ragdollTime));
 	}
+	void handleDamage(int damage) {
+		healthCurrent -= damage;
+		uiController.updateHealthBar(healthMax, healthCurrent);
+	}
+
 	private void movement() {
 		if (isRagdoll) { return; }
 		float horizontalThrow = CrossPlatformInputManager.GetAxis("Horizontal");
@@ -152,7 +153,6 @@ public class Player : MonoBehaviour {
 	private void jumping() {
 		// Player can also jump while still on a ladder
 		if (colliderFeet.IsTouchingLayers(LayerMask.GetMask("Ground")) || (colliderFeet.IsTouchingLayers(LayerMask.GetMask("Climbing")) && isClimbing)) {
-			// return;
 			if (CrossPlatformInputManager.GetButtonDown("Jump")) {
 				rigidbody.velocity = new Vector2(rigidbody.velocity.x, rigidbody.velocity.y + jumpPower);
 				isClimbing = false;

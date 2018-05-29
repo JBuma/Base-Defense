@@ -10,15 +10,7 @@ public class Hotbar : MonoBehaviour {
 	void Start() {
 		inventory = GameObject.Find("InventoryController").GetComponent<Inventory>();
 	}
-
-	// Update is called once per frame
-	void Update() {
-		if (!inventory.isOpen) {
-			// changeSlot((int) Mathf.Round(activeSlot + Mathf.Sign(Input.GetAxis("Mouse ScrollWheel"))));
-		}
-	}
 	public void changeSlot(int slotId) {
-		// Debug.Log(slotId);
 		inventory.slots[activeSlot].GetComponent<Image>().color = Color.white;
 
 		if (slotId >= inventory.hotbarAmount) {
