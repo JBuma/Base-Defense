@@ -42,7 +42,7 @@ public class WorldInteract : MonoBehaviour {
 		Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		mapController.setTile((int) pos.x, (int) pos.y, inventory.itemList[hotbar.activeSlot]);
 	}
-	private void useItem() { // TODO: figure out how to handle different items, hardcoded for now.
+	private void useItem() { // TODO: Make it handle different items, hardcoded for now.
 		Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		Vector2 playerPos = GameObject.Find("Player").transform.position;
 		Vector2 heading = pos - playerPos;
@@ -50,9 +50,6 @@ public class WorldInteract : MonoBehaviour {
 		GameObject item = Instantiate(throwable);
 		// FIXME: Refactor this to not be shit
 		item.transform.position = GameObject.Find("Player").transform.position;
-		// item.GetComponent<Rigidbody2D>().AddForce(-(GameObject.Find("Player").transform.position - pos).normalized * inventory.itemList[hotbar.activeSlot].getAttributeOfType<ThrowableAttribute>().velocity);
-		Debug.Log(pos);
-		Debug.Log(playerPos);
 		item.GetComponent<Rigidbody2D>().AddForce(direction * inventory.itemList[hotbar.activeSlot].getAttributeOfType<ThrowableAttribute>().velocity);
 	}
 }

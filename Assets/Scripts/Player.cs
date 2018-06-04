@@ -50,6 +50,28 @@ public class Player : MonoBehaviour {
 
 	void Update() {
 		handleInput();
+		handleAnimation();
+	}
+	private void handleAnimation() {
+		float horizontalThrow = CrossPlatformInputManager.GetAxis("Horizontal");
+		float verticalThrow = CrossPlatformInputManager.GetAxis("Vertical");
+		//If player is running in either direction
+		if (Mathf.Abs(horizontalThrow) > Mathf.Epsilon) {
+			//Flips sprite based on direction
+			transform.localScale = new Vector2(Mathf.Sign(horizontalThrow), transform.localScale.y);
+			animator.SetBool("Running", true);
+		} else {
+			animator.SetBool("Running", false);
+		}
+
+		if (colliderFeet.IsTouchingLayers(LayerMask.GetMask("Climbing")) && (Mathf.Abs(verticalThrow) > Mathf.Epsilon)) {
+			//Flip sprite based on direction
+			rigidbody.velocity = new Vector2(rigidbody.velocity.x, verticalThrow * climbingSpeed);
+			animator.SetBool("Climbing", true);
+		}
+		if (!colliderFeet.IsTouchingLayers(LayerMask.GetMask("Climbing"))) {
+			animator.SetBool("Climbing", false);
+		}
 	}
 	private void handleInput() {
 		movement();
@@ -116,14 +138,6 @@ public class Player : MonoBehaviour {
 		// rigidbody.AddForce(Vector2.right * horizontalThrow * runSpeed);
 		// rigidbody.velocity = Vector2.ClampMagnitude(rigidbody.velocity, 15f);
 
-		//If player is running in either direction
-		if (Mathf.Abs(horizontalThrow) > Mathf.Epsilon) {
-			//Flips sprite based on direction
-			transform.localScale = new Vector2(Mathf.Sign(horizontalThrow), transform.localScale.y);
-			animator.SetBool("Running", true);
-		} else {
-			animator.SetBool("Running", false);
-		}
 	}
 	private void climbing() {
 		// Makes sure the player can keep hanging on the ladder
@@ -138,7 +152,7 @@ public class Player : MonoBehaviour {
 		if (colliderFeet.IsTouchingLayers(LayerMask.GetMask("Climbing")) && (Mathf.Abs(verticalThrow) > Mathf.Epsilon)) {
 			//Flip sprite based on direction
 			rigidbody.velocity = new Vector2(rigidbody.velocity.x, verticalThrow * climbingSpeed);
-			animator.SetBool("Climbing", true);
+			// animator.SetBool("Climbing", true);
 			isClimbing = true;
 		}
 		if (isClimbing && CrossPlatformInputManager.GetButtonUp("Vertical")) {
@@ -146,7 +160,7 @@ public class Player : MonoBehaviour {
 		}
 		if (!colliderFeet.IsTouchingLayers(LayerMask.GetMask("Climbing"))) {
 			isClimbing = false;
-			animator.SetBool("Climbing", false);
+			// animator.SetBool("Climbing", false);
 			return;
 		}
 	}
