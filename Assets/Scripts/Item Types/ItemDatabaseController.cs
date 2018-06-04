@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -21,8 +22,10 @@ public class ItemDatabaseController : MonoBehaviour {
 		itemData = JsonConvert.DeserializeObject<List<Item>>(File.ReadAllText(Application.dataPath + "/StreamingAssets/Items.json"), settings);
 		itemDatabase = new ItemDatabase(itemData);
 		Debug.Log(itemDatabase[0].ItemName + " has type: " + itemDatabase[0].Type);
-		// Instantiate(itemDatabase[4]);
-		ScriptableObject.CreateInstance(itemDatabase[4].GetType());
+		foreach (Item item in itemData) {
+			AssetDatabase.CreateAsset(item, "Assets/TEST/" + item.Slug + ".asset");
+			AssetDatabase.SaveAssets();
+		}
 	}
 
 	// Update is called once per frame

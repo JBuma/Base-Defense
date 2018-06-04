@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // [System.Serializable]
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "Item", menuName = "Base Defense/Item", order = 0)]
 public class Item : ScriptableObject {
 	public int ID;
 	public string ItemName;

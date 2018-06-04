@@ -1,0 +1,149 @@
+[{
+	"ID": 0,
+	"ItemName": "Basic Block",
+	"Slug": "basic_block",
+	"Type": "block",
+	"ItemAttributes": [{
+			"$type": "ValueAttribute, Assembly-CSharp",
+			"value": 0,
+			"name": "",
+			"hideFlags": 0
+		},
+		{
+			"$type": "WeightAttribute, Assembly-CSharp",
+			"weight": 7,
+			"name": "",
+			"hideFlags": 0
+		},
+		{
+			"$type": "StackableAttribute, Assembly-CSharp",
+			"stackable": true,
+			"name": "",
+			"hideFlags": 0
+		},
+		{
+			"$type": "TileAttribute, Assembly-CSharp",
+			"sprite": "",
+			"layer": "Ground",
+			"name": "",
+			"hideFlags": 0
+		}
+	]
+}, {
+	"ID": 1,
+	"ItemName": "Grass Block",
+	"Slug": "grass_block",
+	"Type": "block",
+	"ItemAttributes": [{
+			"$type": "ValueAttribute, Assembly-CSharp",
+			"value": 4,
+			"name": "",
+			"hideFlags": 0
+		},
+		{
+			"$type": "WeightAttribute, Assembly-CSharp",
+			"weight": 4,
+			"name": "",
+			"hideFlags": 0
+		},
+		{
+			"$type": "StackableAttribute, Assembly-CSharp",
+			"stackable": true,
+			"name": "",
+			"hideFlags": 0
+		},
+		{
+			"$type": "TileAttribute, Assembly-CSharp",
+			"sprite": "",
+			"layer": "Ground",
+			"name": "",
+			"hideFlags": 0
+		}
+	]
+}, {
+	"ID": 2,
+	"ItemName": "Steel Block",
+	"Slug": "steel_block",
+	"Type": "block",
+	"ItemAttributes": [{
+			"$type": "ValueAttribute, Assembly-CSharp",
+			"value": 10,
+			"name": "",
+			"hideFlags": 0
+		},
+		{
+			"$type": "WeightAttribute, Assembly-CSharp",
+			"weight": 10,
+			"name": "",
+			"hideFlags": 0
+		},
+		{
+			"$type": "StackableAttribute, Assembly-CSharp",
+			"stackable": true,
+			"name": "",
+			"hideFlags": 0
+		},
+		{
+			"$type": "TileAttribute, Assembly-CSharp",
+			"sprite": "",
+			"layer": "Ground",
+			"name": "",
+			"hideFlags": 0
+		}
+	]
+}, {
+	"ID": 3,
+	"ItemName": "Ladder",
+	"Slug": "ladder",
+	"Type": "block",
+	"ItemAttributes": [{
+			"$type": "ValueAttribute, Assembly-CSharp",
+			"value": 10,
+			"name": "",
+			"hideFlags": 0
+		},
+		{
+			"$type": "WeightAttribute, Assembly-CSharp",
+			"weight": 5,
+			"name": "",
+			"hideFlags": 0
+		},
+		{
+			"$type": "StackableAttribute, Assembly-CSharp",
+			"stackable": true,
+			"name": "",
+			"hideFlags": 0
+		},
+		{
+			"$type": "TileAttribute, Assembly-CSharp",
+			"sprite": "",
+			"layer": "Ground",
+			"name": "",
+			"hideFlags": 0
+		}
+	]
+}, {
+	"ID": 4,
+	"ItemName": "Arrow",
+	"Slug": "arrow_basic",
+	"Type": "item",
+	"ItemAttributes": [{
+			"$type": "ValueAttribute, Assembly-CSharp",
+			"value": 2,
+			"name": "",
+			"hideFlags": 0
+		},
+		{
+			"$type": "WeightAttribute, Assembly-CSharp",
+			"weight": 1,
+			"name": "",
+			"hideFlags": 0
+		},
+		{
+			"$type": "StackableAttribute, Assembly-CSharp",
+			"stackable": false,
+			"name": "",
+			"hideFlags": 0
+		}
+	]
+}]

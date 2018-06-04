@@ -37,6 +37,9 @@ public class MapTile : Tile {
 		this.tileType = type;
 	}
 	public void setTileItem(Item item) {
+		if (item.Sprite == null) {
+			item.loadSprite();
+		}
 		this.item = item;
 		if (item.Sprite == null) {
 			item.loadSprite();

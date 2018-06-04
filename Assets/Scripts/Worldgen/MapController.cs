@@ -26,6 +26,9 @@ public class MapController : MonoBehaviour {
 
 	void generateNewMap() {
 		itemDatabase.generateNewDatabase();
+		for (int i = 0; i < itemDatabase.itemDatabase.Count; i++) {
+			// Debug.Log(itemDatabase.itemDatabase[i].ItemName + " has type: " + itemDatabase.itemDatabase[i].Type);
+		}
 		tilemap.ClearAllTiles();
 		climbing.ClearAllTiles();
 		background.ClearAllTiles();

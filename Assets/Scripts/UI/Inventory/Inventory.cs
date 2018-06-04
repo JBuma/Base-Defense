@@ -35,6 +35,8 @@ public class Inventory : MonoBehaviour {
 			} else {
 				slots.Add(Instantiate(inventorySlot, slotPanel.transform));
 			}
+			slots[i].GetComponent<Slot>().slotId = i;
+			// Debug.Log("Slot id " + i + " has item id: " + items[i].ID);
 
 			slots[i].GetComponent<Slot>().slotId = i;
 

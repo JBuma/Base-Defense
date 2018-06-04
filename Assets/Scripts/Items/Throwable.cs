@@ -25,7 +25,7 @@ public class Throwable : MonoBehaviour {
 			// collider.material.bounciness = 0;
 			rigidbody.freezeRotation = true;
 			rigidbody.velocity = new Vector2(0, 0);
-		} else {
+		} else if (other.gameObject.tag != "projectile") {
 			rigidbody.mass = 0.00001f;
 			rigidbody.freezeRotation = true;
 			rigidbody.velocity = new Vector2(0, 0);

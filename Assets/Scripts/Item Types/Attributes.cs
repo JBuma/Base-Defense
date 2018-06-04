@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[System.Serializable]
+// [System.Serializable]
+// using UnityEngine;
+
+[CreateAssetMenu(fileName = "ItemAttribute", menuName = "Base Defense/ItemAttribute", order = 0)]
 public class ItemAttribute : ScriptableObject { }
 
 public class ValueAttribute : ItemAttribute {
